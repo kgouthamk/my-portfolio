@@ -3,83 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Why AI Safety in Healthcare Doesn't Slow You Down — Goutham Kesavan</title>
-  <meta name="description" content="The conventional wisdom is wrong. Building HIPAA-compliant, clinically safe AI doesn't slow you down. Done right, it's the fastest path to trust, adoption, and durable differentiation.">
+  <title>Building AI That Organizations Actually Trust — Goutham Kesavan</title>
+  <meta name="description" content="The teams that front-load AI safety architecture don't just ship more confidently — they win enterprise deals, earn user trust, and build moats their competitors can't easily replicate.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg:     #060914;
-      --card:   rgba(255,255,255,0.04);
-      --border: rgba(255,255,255,0.08);
-      --text:   #e2e8f0;
-      --muted:  #94a3b8;
-      --dim:    #64748b;
-      --cyan:   #22d3ee;
-      --violet: #a78bfa;
-      --orange: #fb923c;
-      --green:  #4ade80;
-      --grad:   linear-gradient(135deg, #22d3ee, #a78bfa);
-      --grad2:  linear-gradient(135deg, #4ade80, #22d3ee);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
-    body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(34,211,238,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.02) 1px, transparent 1px); background-size: 64px 64px; pointer-events: none; z-index: 0; }
-    * { position: relative; z-index: 1; }
+    :root{--bg:#060914;--card:rgba(255,255,255,.04);--card-h:rgba(255,255,255,.07);--border:rgba(255,255,255,.08);--text:#e2e8f0;--muted:#94a3b8;--dim:#64748b;--cyan:#22d3ee;--violet:#a78bfa;--orange:#fb923c;--green:#4ade80;--grad:linear-gradient(135deg,#22d3ee,#a78bfa);--grad-green:linear-gradient(135deg,#4ade80,#22d3ee)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(34,211,238,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.02) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;z-index:0}
+    *{position:relative;z-index:1}
+    .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--grad-green);width:0;z-index:500;transition:width .08s linear}
+    nav{padding:20px 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(6,9,20,.85);backdrop-filter:blur(20px);position:sticky;top:0;z-index:200}
+    .nav-logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none}
+    .nav-back{color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .2s}
+    .nav-back:hover{color:var(--text)}
+    .article-wrap{max-width:720px;margin:0 auto;padding:72px 40px 120px}
+    .article-meta{display:flex;gap:12px;align-items:center;margin-bottom:32px;flex-wrap:wrap}
+    .meta-tag{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--green);background:rgba(74,222,128,.09);border:1px solid rgba(74,222,128,.22);padding:4px 12px;border-radius:100px}
+    .meta-date,.meta-read{font-size:.8rem;color:var(--dim)}
+    .meta-dot{width:3px;height:3px;border-radius:50%;background:var(--dim);flex-shrink:0}
+    h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.9rem,5vw,2.9rem);font-weight:700;letter-spacing:-.025em;line-height:1.15;margin-bottom:20px}
+    .gradient-green{background:var(--grad-green);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .article-lede{font-size:1.12rem;color:var(--muted);line-height:1.75;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--border)}
+    .article-lede strong{color:var(--text)}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .article-body h2{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;letter-spacing:-.015em;color:var(--text);margin:52px 0 16px}
+    .article-body p{color:var(--muted);font-size:1rem;line-height:1.82;margin-bottom:20px}
+    .article-body p strong{color:var(--text)}
+    .article-body a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(74,222,128,.3);transition:border-color .2s}
+    .article-body a:hover{border-color:var(--green)}
+    .article-body ul{margin:0 0 22px 22px}
+    .article-body ul li{color:var(--muted);font-size:1rem;line-height:1.82;margin-bottom:10px}
+    .article-body ul li strong{color:var(--text)}
+    .pull-quote{font-family:'Space Grotesk',sans-serif;font-size:1.18rem;font-weight:500;color:var(--text);border-left:3px solid var(--green);padding:6px 0 6px 24px;margin:40px 0;line-height:1.6}
+    .callout{background:rgba(74,222,128,.05);border:1px solid rgba(74,222,128,.18);border-radius:12px;padding:24px 28px;margin:32px 0}
+    .callout p{color:var(--muted);margin:0;font-size:.94rem;line-height:1.75}
+    .callout p strong{color:var(--green)}
+    .callout.warn{background:rgba(251,146,60,.05);border-color:rgba(251,146,60,.18)}
+    .callout.warn p strong{color:var(--orange)}
 
-    nav { padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
-    .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
-    .nav-back { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
-    .nav-back:hover { color: var(--text); }
+    /* Domain examples grid */
+    .domain-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0}
+    .domain-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;transition:all .3s}
+    .domain-card:hover{background:var(--card-h);border-color:rgba(74,222,128,.2);transform:translateY(-3px)}
+    .domain-icon{font-size:1.4rem;margin-bottom:8px}
+    .domain-name{font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:600;color:var(--text);margin-bottom:4px}
+    .domain-risk{font-size:.78rem;color:var(--muted);line-height:1.5}
+    .domain-reg{font-size:.7rem;font-weight:600;color:var(--green);margin-top:6px;text-transform:uppercase;letter-spacing:.06em}
 
-    .article-wrap { max-width: 720px; margin: 0 auto; padding: 72px 40px 120px; }
-    .article-meta { display: flex; gap: 12px; align-items: center; margin-bottom: 32px; }
-    .meta-tag { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green); background: rgba(74,222,128,0.09); border: 1px solid rgba(74,222,128,0.22); padding: 4px 12px; border-radius: 100px; }
-    .meta-date { font-size: 0.8rem; color: var(--dim); }
-    .meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--dim); }
-    .meta-read { font-size: 0.8rem; color: var(--dim); }
-    h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 20px; }
-    .gradient-text  { background: var(--grad);  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .gradient-green { background: var(--grad2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .article-lede { font-size: 1.15rem; color: var(--muted); line-height: 1.7; margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
-    .article-body h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.015em; color: var(--text); margin: 48px 0 16px; }
-    .article-body p { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 20px; }
-    .article-body p strong { color: var(--text); }
-    .article-body ul { margin: 0 0 20px 20px; }
-    .article-body ul li { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 8px; }
-    .article-body ul li strong { color: var(--text); }
-    .pull-quote { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 500; color: var(--text); border-left: 3px solid var(--green); padding: 4px 0 4px 24px; margin: 36px 0; line-height: 1.6; }
-    .callout { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.18); border-radius: 12px; padding: 24px 28px; margin: 32px 0; }
-    .callout p { color: var(--muted); margin: 0; font-size: 0.94rem; }
-    .callout p strong { color: var(--green); }
-    .callout-orange { background: rgba(251,146,60,0.06); border-color: rgba(251,146,60,0.18); }
-    .callout-orange p strong { color: var(--orange); }
+    /* Trust stack diagram */
+    .trust-stack{margin:32px 0}
+    .trust-layer{display:flex;align-items:center;gap:16px;padding:14px 20px;border:1px solid var(--border);transition:all .35s;cursor:default}
+    .trust-layer:first-child{border-radius:12px 12px 0 0}
+    .trust-layer:last-child{border-radius:0 0 12px 12px}
+    .trust-layer:not(:last-child){border-bottom:none}
+    .trust-layer:hover{background:var(--card-h);border-color:rgba(74,222,128,.22)}
+    .tl-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+    .tl-name{font-family:'Space Grotesk',sans-serif;font-size:.88rem;font-weight:600;color:var(--text);margin-bottom:2px}
+    .tl-desc{font-size:.76rem;color:var(--dim);line-height:1.4}
 
-    .related { margin-top: 80px; padding-top: 48px; border-top: 1px solid var(--border); }
-    .related-title { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--dim); margin-bottom: 24px; }
-    .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .related-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-decoration: none; transition: all 0.3s; }
-    .related-card:hover { border-color: rgba(74,222,128,0.22); transform: translateY(-3px); }
-    .related-card-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.92rem; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
-    .related-card-link { font-size: 0.78rem; color: var(--green); }
+    .sources-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin:40px 0}
+    .sources-title{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:14px}
+    .sources-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+    .sources-list li{font-size:.82rem;color:var(--muted)}
+    .sources-list a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(74,222,128,.25);transition:border-color .2s}
+    .sources-list a:hover{border-color:var(--green)}
 
-    .author-card { display: flex; align-items: center; gap: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-top: 64px; }
-    .author-avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid transparent; background: linear-gradient(var(--bg), var(--bg)) padding-box, var(--grad) border-box; }
-    .author-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-    .author-bio { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
-    .author-bio a { color: var(--cyan); text-decoration: none; }
+    .author-card{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-top:64px}
+    .author-avatar{width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,var(--grad) border-box}
+    .author-name{font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text);margin-bottom:4px}
+    .author-bio{font-size:.82rem;color:var(--muted);line-height:1.5}
+    .author-bio a{color:var(--cyan);text-decoration:none}
+    .related{margin-top:64px;padding-top:40px;border-top:1px solid var(--border)}
+    .related-title{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .related-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-decoration:none;transition:all .3s}
+    .related-card:hover{border-color:rgba(74,222,128,.25);transform:translateY(-3px)}
+    .related-card-title{font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.4}
+    .related-card-link{font-size:.78rem;color:var(--green)}
 
-    @media (max-width: 640px) {
-      nav { padding: 16px 24px; }
-      .article-wrap { padding: 48px 24px 80px; }
-      .related-grid { grid-template-columns: 1fr; }
-      .author-card { flex-direction: column; text-align: center; }
+    @media(max-width:640px){
+      nav{padding:16px 24px}
+      .article-wrap{padding:48px 24px 80px}
+      .domain-grid{grid-template-columns:1fr}
+      .related-grid{grid-template-columns:1fr}
+      .author-card{flex-direction:column;text-align:center}
     }
   </style>
 </head>
 <body>
+  <div class="progress-bar" id="progress"></div>
   <nav>
     <a href="../index.html" class="nav-logo">GK</a>
     <a href="../index.html#blog" class="nav-back">← Back to Portfolio</a>
@@ -87,125 +104,192 @@
 
   <div class="article-wrap">
     <div class="article-meta">
-      <span class="meta-tag">Healthcare AI</span>
+      <span class="meta-tag">Enterprise AI</span>
       <span class="meta-dot"></span>
       <span class="meta-date">May 2026</span>
       <span class="meta-dot"></span>
       <span class="meta-read">6 min read</span>
     </div>
 
-    <h1>Why AI Safety in Healthcare<br><span class="gradient-green">Doesn't Slow You Down</span><br><span style="font-size:0.6em;opacity:0.7">— It Speeds You Up</span></h1>
+    <h1>Building AI That<br><span class="gradient-green">Organizations Actually Trust</span></h1>
 
     <p class="article-lede">
-      The conventional wisdom among AI builders is that compliance slows you down. HIPAA, HITRUST, clinical review — they're treated as friction to minimize, not infrastructure to build on. After building League's AI Health Coach from the ground up, I'm convinced this framing is exactly backwards.
+      The teams that front-load AI safety and compliance architecture don't just ship more confidently — <strong>they win enterprise deals their competitors can't even bid on, earn user trust that compounds, and build moats that become harder to replicate over time.</strong> The conventional wisdom that safety slows you down gets it exactly backwards.
     </p>
 
     <div class="article-body">
 
-      <h2>The Myth: Safety Is a Constraint</h2>
-      <p>
-        In most technology sectors, moving fast and breaking things is a reasonable strategy — the cost of a bug is a bad user experience, a support ticket, maybe some negative reviews. The feedback loop is fast and the damage is bounded.
-      </p>
-      <p>
-        Healthcare is different. A bad AI output here isn't a UX failure — it's a clinical risk. An incorrect medication suggestion, a missed symptom, a safety guardrail that lets through harmful content — these have real consequences for real people. The stakes are asymmetric in a way that changes the calculus entirely.
-      </p>
-      <p>
-        Most AI teams respond to this reality by treating safety and compliance as constraints: things you bolt on at the end, checkbox exercises for legal to approve, obstacles between you and shipping. This approach produces fragile systems that move slowly, break in production, and can't survive regulatory scrutiny.
-      </p>
-
-      <div class="callout callout-orange">
-        <p><strong>The real cost of "bolt-on" safety:</strong> When compliance is an afterthought, you spend more time firefighting issues in production than you would have spent building the right guardrails upfront. The teams that move fastest are the ones who front-loaded safety architecture — not the ones who skipped it.</p>
+      <div class="reveal">
+        <h2>The Pattern Across High-Stakes AI Deployments</h2>
+        <p>
+          Look across any industry where AI is making decisions that affect people's money, health, legal rights, or employment — and you find the same pattern: the teams that move fastest sustainably are the ones who treated trust infrastructure as a first-class product concern, not a compliance checkbox.
+        </p>
+        <p>
+          The domains where this matters most aren't niche:
+        </p>
+        <div class="domain-grid">
+          <div class="domain-card">
+            <div class="domain-icon">🏥</div>
+            <div class="domain-name">Healthcare</div>
+            <div class="domain-risk">Clinical advice, medication management, care coordination — errors have direct patient safety consequences</div>
+            <div class="domain-reg">HIPAA · HITRUST · Clinical standards</div>
+          </div>
+          <div class="domain-card">
+            <div class="domain-icon">🏦</div>
+            <div class="domain-name">Financial Services</div>
+            <div class="domain-risk">Investment advice, lending decisions, fraud detection — errors create regulatory liability and user harm</div>
+            <div class="domain-reg">SOX · MiFID II · FINRA</div>
+          </div>
+          <div class="domain-card">
+            <div class="domain-icon">⚖️</div>
+            <div class="domain-name">Legal</div>
+            <div class="domain-risk">Contract analysis, legal research, compliance review — errors carry professional liability and court consequences</div>
+            <div class="domain-reg">Bar rules · Privilege protections</div>
+          </div>
+          <div class="domain-card">
+            <div class="domain-icon">👥</div>
+            <div class="domain-name">HR &amp; Hiring</div>
+            <div class="domain-risk">Candidate screening, performance assessment, compensation recommendations — errors create discrimination risk</div>
+            <div class="domain-reg">EEOC · GDPR · State AI laws</div>
+          </div>
+        </div>
+        <p>
+          In each of these domains, the consequence of a wrong AI output isn't a bad user experience — it's a user harmed, a regulation violated, or a company liability created. The economics of getting it wrong are asymmetric in a way that changes how you should architect the system.
+        </p>
       </div>
 
-      <h2>What HIPAA and HITRUST Actually Require for AI</h2>
-      <p>
-        There's a pervasive misunderstanding of what healthcare compliance means in the context of AI. Most engineers think of it as a data problem: encrypt PHI in transit and at rest, control access, maintain audit logs. That's necessary but nowhere near sufficient for an AI health coach.
-      </p>
-      <p>
-        For an AI system that converses with users about their health, compliance extends to the semantic layer:
-      </p>
-      <ul>
-        <li><strong>The agent's outputs are regulated, not just its data access.</strong> If the AI gives advice that a clinician would consider outside the standard of care, that's a liability — regardless of whether the underlying data was properly encrypted.</li>
-        <li><strong>Guardrails need to be semantic, not lexical.</strong> Blocking keywords ("don't say 'diagnosis'") is a brittle approximation. Real safety requires understanding the intent and clinical implication of what the agent is saying — and flagging or refusing responses that cross clinical lines regardless of phrasing.</li>
-        <li><strong>Audit trails need to capture agent reasoning, not just data access.</strong> If an agent makes a clinical recommendation, the system needs to be able to reconstruct what inputs led to that recommendation, what tools were called, and what guardrails were evaluated. This requires thoughtful architecture upfront.</li>
-        <li><strong>Clinical oversight needs to be built into the system design.</strong> Regular clinical review of agent outputs, red-team evaluation of edge cases, and a process for updating guardrails as medical guidelines evolve — these are ongoing operational requirements, not one-time approvals.</li>
-      </ul>
-
-      <h2>Guardrails as a Product Feature</h2>
-      <p>
-        Here's the reframe that changed how I build: <strong>guardrails aren't a constraint on the product — they are the product.</strong>
-      </p>
-      <p>
-        In healthcare, trust is the fundamental currency. A user who doesn't trust their AI health coach won't follow its recommendations. A user who does trust it and gets burned will never return — and will tell everyone they know. The guardrail layer is what makes the difference between a system users trust enough to act on and one they treat as a toy.
-      </p>
-      <p>
-        When we built League's safety framework, we designed it with three layers:
-      </p>
-      <ul>
-        <li><strong>Input screening:</strong> Evaluating user messages for signals that require special handling — crisis indicators, questions that exceed the agent's clinical scope, attempts to manipulate the agent into unsafe outputs.</li>
-        <li><strong>Output validation:</strong> Evaluating agent responses against a clinical safety rubric before they're surfaced to the user. Not a keyword filter — a semantic evaluation of clinical appropriateness, including edge cases like advice that's technically accurate but contextually inappropriate.</li>
-        <li><strong>Escalation protocols:</strong> Clear pathways for when the agent detects something beyond its scope — surfacing human support options, connecting to clinical resources, or generating a structured summary for a care team handoff.</li>
-      </ul>
-      <p>
-        Users experience this as the agent "knowing its lane" — which is exactly what builds trust. An AI that's honest about what it doesn't know, and that connects you to the right resource when needed, feels more trustworthy than one that tries to answer everything and occasionally gets it dangerously wrong.
-      </p>
-
-      <div class="pull-quote">
-        "An AI health coach that knows its limits — and says so — is more trustworthy than one that tries to answer everything. Guardrails aren't walls. They're the thing that makes the system worth trusting."
+      <div class="reveal">
+        <div class="pull-quote">"In high-stakes AI, trust is the product. Everything else — the model quality, the UI, the features — is in service of whether users and organizations trust the system enough to act on what it tells them."</div>
       </div>
 
-      <h2>Evals: The Infrastructure That Makes Speed Safe</h2>
-      <p>
-        The single biggest lever for moving fast in regulated AI is a mature evaluation framework. This sounds counterintuitive — evals feel like more overhead, more process, slower shipping. The reality is the opposite.
-      </p>
-      <p>
-        Without evals, every model update, every prompt change, every new tool integration requires manual review before you can confidently ship. With evals, you can make changes and know within minutes whether anything important has regressed — across clinical accuracy, guardrail effectiveness, response quality, and tool usage correctness.
-      </p>
-      <p>
-        The eval framework we built at League measures:
-      </p>
-      <ul>
-        <li><strong>Clinical accuracy:</strong> Does the agent's health information align with evidence-based guidelines? We run a suite of clinical test cases reviewed by our clinical team.</li>
-        <li><strong>Guardrail effectiveness:</strong> Does the input screener correctly flag crisis indicators? Does the output validator catch out-of-scope clinical advice? We red-team these continuously.</li>
-        <li><strong>Tool usage correctness:</strong> When the agent calls a tool, does it call the right tool with the right parameters? Does the returned data match what the user context suggests?</li>
-        <li><strong>Conversational quality:</strong> Is the agent's tone appropriate for the clinical context? Does it over-medicalise routine questions? Does it under-flag genuinely concerning ones?</li>
-      </ul>
-      <p>
-        With this in place, shipping a new model version went from a multi-week clinical review process to a day of automated eval runs followed by targeted human review of flagged cases. <strong>The eval framework didn't slow us down — it's what made speed possible at all.</strong>
-      </p>
+      <div class="reveal">
+        <h2>What "Safe AI" Actually Means at the Product Layer</h2>
+        <p>
+          Most teams conflate AI safety with data security: encrypt data in transit, control access, maintain audit logs. That's necessary but insufficient. For AI systems making recommendations or decisions that affect people, safety extends to the <strong>semantic layer</strong> — what the AI says, not just what data it touches.
+        </p>
+        <p>
+          A complete AI safety architecture for high-stakes applications has at least three layers:
+        </p>
 
-      <h2>Clinical Partnership as a Competitive Advantage</h2>
-      <p>
-        The teams that treat clinical oversight as a bottleneck are missing the real opportunity. Clinicians bring domain knowledge that no amount of prompt engineering can replicate — the edge cases that matter, the contextual nuances that distinguish safe advice from dangerous oversimplification, the patterns that signal when a user needs human intervention.
-      </p>
-      <p>
-        At League, we embedded clinical partners in the product development process — not as approvers at the end of the cycle, but as co-designers of the agent's behavior. They helped define the clinical scope of the agent, design the escalation criteria, and review the eval test cases. The result: a system that clinicians trust, which in turn means enterprise healthcare customers trust it enough to deploy it to their members.
-      </p>
-      <p>
-        That trust is a competitive moat. Any team can build a health chatbot. Very few can build one that passes HITRUST r2 and SOC 2 Type II review, earns clinical team endorsement, and deploys to millions of users in a live healthcare environment. The compliance and safety work that feels like overhead is actually the barrier to entry that protects you once you've cleared it.
-      </p>
+        <div class="trust-stack">
+          <div class="trust-layer">
+            <div class="tl-icon" style="background:rgba(251,146,60,.12)">🔍</div>
+            <div>
+              <div class="tl-name">Input Screening</div>
+              <div class="tl-desc">Semantic classification of user intent — identifying requests that exceed system scope, signals of distress or crisis, or attempts to manipulate the agent into unsafe outputs. Not keyword matching — intent understanding.</div>
+            </div>
+          </div>
+          <div class="trust-layer">
+            <div class="tl-icon" style="background:rgba(167,139,250,.12)">🧠</div>
+            <div>
+              <div class="tl-name">Reasoning &amp; Grounding Layer</div>
+              <div class="tl-desc">The agent reasons over verified, retrieved data — not inferred facts. Tool calls are logged. Uncertainty is explicit, not papered over. The agent knows what it doesn't know and says so.</div>
+            </div>
+          </div>
+          <div class="trust-layer">
+            <div class="tl-icon" style="background:rgba(34,211,238,.12)">✅</div>
+            <div>
+              <div class="tl-name">Output Validation</div>
+              <div class="tl-desc">Before surfacing to the user: evaluate against a domain-appropriate rubric — accuracy, appropriate tone, scope compliance, and regulatory alignment. This runs before every response, not as a spot check.</div>
+            </div>
+          </div>
+          <div class="trust-layer">
+            <div class="tl-icon" style="background:rgba(74,222,128,.12)">🔀</div>
+            <div>
+              <div class="tl-name">Escalation &amp; Handoff</div>
+              <div class="tl-desc">Clear pathways for when the agent detects something beyond its scope. Connect to human support, relevant third-party resources, or generate a structured summary for a specialist handoff. Knowing when not to answer is a safety feature.</div>
+            </div>
+          </div>
+        </div>
 
-      <div class="pull-quote">
-        "The compliance work that feels like overhead is the barrier to entry that protects you once you've cleared it. Most teams never get there — and that's your moat."
+        <p>
+          Users experience this architecture as an agent that "knows its lane." An AI that's honest about its limits — and connects you to the right resource when needed — is meaningfully more trustworthy than one that attempts to answer everything and occasionally gets it wrong in ways that matter.
+        </p>
       </div>
 
-      <h2>The Takeaway for AI Product Leaders</h2>
-      <p>
-        If you're building AI in a regulated domain, here's what I'd tell you:
-      </p>
-      <ul>
-        <li><strong>Start with the safety architecture, not the features.</strong> Guardrails retrofitted onto a system are always more expensive and less effective than ones designed in from the start.</li>
-        <li><strong>Build your eval framework before your second major release.</strong> The investment pays back exponentially as you scale — and it's nearly impossible to retrofit at scale.</li>
-        <li><strong>Make compliance teams partners, not gatekeepers.</strong> Legal, compliance, and clinical partners who understand what you're building will move faster with you than ones who are reviewing finished work they've never seen before.</li>
-        <li><strong>Design guardrails to be semantic and layered.</strong> Input screening + output validation + escalation protocols. Keyword blocking is not a safety framework.</li>
-        <li><strong>Treat trust as the core product metric.</strong> In healthcare AI, trust is what determines whether users act on what the agent tells them. Everything else is in service of that.</li>
-      </ul>
-      <p>
-        The myth that safety slows you down comes from building it wrong — as an afterthought, as a checkbox, as someone else's problem. Built right, it's the foundation that lets you move faster, ship more confidently, and build something that lasts.
-      </p>
+      <div class="reveal">
+        <div class="callout warn">
+          <p><strong>The bolt-on safety trap:</strong> When safety is retrofitted at the end of development, it becomes a keyword blocklist applied to outputs — brittle, incomplete, and full of false positives that degrade the user experience. Semantic safety requires understanding intent and context, which means it must be architecturally embedded, not added on top.</p>
+        </div>
+      </div>
 
-      <div class="callout">
-        <p><strong>Bottom line:</strong> In healthcare AI, safety isn't a constraint on speed — it's the precondition for it. Teams that front-load safety architecture ship faster, retain users longer, and win enterprise deals that move-fast-break-things teams can't even bid on.</p>
+      <div class="reveal">
+        <h2>Evals: The Mechanism That Makes Speed Safe</h2>
+        <p>
+          The single biggest enabler of moving fast in high-stakes AI is a mature evaluation framework. This seems counterintuitive — evals feel like more overhead. The reality: without evals, every model update, prompt change, or new tool integration requires manual review before you can confidently ship. With evals, you can make changes and know within minutes whether anything important has regressed.
+        </p>
+        <p>
+          Strong eval pipelines for high-stakes AI measure multiple dimensions:
+        </p>
+        <ul>
+          <li><strong>Factual accuracy:</strong> Does the agent's output align with ground truth from verified sources? Run against a curated test suite that covers common cases and adversarial edge cases.</li>
+          <li><strong>Scope compliance:</strong> Does the agent stay within its defined remit? Does it appropriately decline or escalate when it encounters something outside its scope?</li>
+          <li><strong>Guardrail effectiveness:</strong> Does the input screener correctly flag high-risk inputs? Does the output validator catch inappropriate responses? Red-team these continuously.</li>
+          <li><strong>Tone and appropriateness:</strong> Is the agent's communication style appropriate for the domain and context? Does it over-simplify genuinely complex decisions? Does it over-complicate simple ones?</li>
+        </ul>
+        <p>
+          With this infrastructure in place, teams report that major updates — new model versions, new tool integrations, prompt revisions — go from multi-week review cycles to same-day deploy with targeted human review of flagged cases. <strong>The eval framework doesn't slow you down. It's what makes sustained speed possible.</strong>
+        </p>
+      </div>
+
+      <div class="reveal">
+        <h2>The Regulatory Layer Is Moving Faster Than Most Teams Realize</h2>
+        <p>
+          The global regulatory environment for high-stakes AI is solidifying rapidly:
+        </p>
+        <ul>
+          <li>The <a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">EU AI Act</a> (2024) classifies AI systems by risk tier — high-risk systems (medical devices, credit scoring, HR screening) face mandatory conformity assessments, human oversight requirements, and transparency obligations.</li>
+          <li>The <a href="https://www.nist.gov/artificial-intelligence/ai-risk-management-framework" target="_blank" rel="noopener">NIST AI Risk Management Framework</a> (AI RMF 1.0) provides the US standard for organizational AI governance — and increasingly appears in enterprise procurement requirements.</li>
+          <li>US state AI laws (Colorado, Connecticut, Texas, and others) are introducing sector-specific requirements for automated decision systems affecting consumers.</li>
+        </ul>
+        <p>
+          Teams building without this foundation aren't just taking a product risk — they're building technical debt that will be expensive to retrofit when regulatory requirements arrive. The teams that built on these frameworks from the start will be first to market when regulated enterprise customers start requiring them as a condition of purchase.
+        </p>
+      </div>
+
+      <div class="reveal">
+        <div class="pull-quote">"The compliance work that feels like overhead is the barrier to entry that protects you once you've cleared it. Most competitors never make it through — and that's your moat."</div>
+      </div>
+
+      <div class="reveal">
+        <h2>Domain Expertise as a Product Asset</h2>
+        <p>
+          The most underrated element of trustworthy AI is partnering with domain experts — not as approvers at the end of the cycle, but as co-designers of the system's behavior.
+        </p>
+        <p>
+          Clinicians, lawyers, financial advisors, and HR professionals bring edge-case knowledge that no amount of prompt engineering replicates: the situations where technically correct advice is contextually inappropriate, the patterns that signal when a user needs human intervention, the phrasing that builds versus erodes trust in their domain.
+        </p>
+        <p>
+          Teams that embed these partners in the product development process — designing the agent's scope, the escalation criteria, and the eval test cases together — produce systems that the domain's practitioners trust. And practitioner trust is the gateway to institutional trust. An AI that clinicians endorse, that financial advisors recommend, that lawyers are comfortable citing — that's a product category distinction that marketing can't replicate.
+        </p>
+      </div>
+
+      <div class="reveal">
+        <h2>The Takeaway</h2>
+        <p>
+          If you're building AI in a domain where the outputs affect people's lives, livelihoods, or decisions that matter:
+        </p>
+        <ul>
+          <li><strong>Architect safety in from the start.</strong> Semantic guardrails — input screening, output validation, escalation protocols — need to be embedded in the system architecture, not added at the top.</li>
+          <li><strong>Ship your eval framework before your second major release.</strong> The investment pays back immediately and compounds with every change.</li>
+          <li><strong>Make compliance partners co-designers, not reviewers.</strong> Legal, domain experts, and risk teams who understand what you're building move faster with you than ones who review finished work.</li>
+          <li><strong>Know the regulatory landscape in your domain.</strong> NIST AI RMF, EU AI Act, and sector-specific rules are moving from aspirational to contractual requirements faster than most teams expect.</li>
+          <li><strong>Treat trust as the core product metric.</strong> In high-stakes AI, trust determines whether users act on what the agent tells them — and whether organizations deploy it at all. Everything else is in service of that.</li>
+        </ul>
+        <p>
+          The teams winning in enterprise AI aren't the fastest to ship a flashy demo — they're the ones that institutional buyers trust enough to put in front of their customers. Building that trust systematically, from the architecture up, is the strategy that compounds.
+        </p>
+      </div>
+
+      <div class="sources-box reveal">
+        <div class="sources-title">References &amp; Further Reading</div>
+        <ul class="sources-list">
+          <li><a href="https://www.nist.gov/artificial-intelligence/ai-risk-management-framework" target="_blank" rel="noopener">NIST AI Risk Management Framework (AI RMF 1.0)</a> — Jan 2023</li>
+          <li><a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">EU AI Act</a> — Risk-based regulation for AI systems, 2024</li>
+          <li><a href="https://www.anthropic.com/responsible-scaling-policy" target="_blank" rel="noopener">Anthropic: Responsible Scaling Policy</a></li>
+          <li><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" rel="noopener">OWASP Top 10 for LLM Applications</a> — Practical security risks for AI systems</li>
+          <li><a href="https://www.hhs.gov/hipaa/for-professionals/index.html" target="_blank" rel="noopener">HHS: HIPAA for Professionals</a> — Healthcare AI compliance baseline</li>
+        </ul>
       </div>
 
     </div>
@@ -214,7 +298,7 @@
       <img src="../assets/profile.png" alt="Goutham Kesavan" class="author-avatar">
       <div>
         <div class="author-name">Goutham Kesavan</div>
-        <div class="author-bio">Built League's HITRUST r2, SOC 2 Type II, HIPAA-compliant AI Health Coach from the ground up. Senior Principal PM · Agentic AI. <a href="https://www.linkedin.com/in/kgouthamk/" target="_blank" rel="noopener">Connect on LinkedIn →</a></div>
+        <div class="author-bio">Built AI trust architecture at enterprise scale across regulated domains. Senior Principal PM · Agentic AI. <a href="https://www.linkedin.com/in/kgouthamk/" target="_blank" rel="noopener">Connect on LinkedIn →</a></div>
       </div>
     </div>
 
@@ -222,7 +306,7 @@
       <div class="related-title">More Essays</div>
       <div class="related-grid">
         <a href="orchestration-moat.html" class="related-card">
-          <div class="related-card-title">The Real AI Moat: Why Orchestration Beats Models</div>
+          <div class="related-card-title">The Real AI Moat: Why Orchestration Is Winning</div>
           <div class="related-card-link">Read essay →</div>
         </a>
         <a href="agent-generated-ui.html" class="related-card">
@@ -232,5 +316,22 @@
       </div>
     </div>
   </div>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const t = document.documentElement.scrollHeight - window.innerHeight;
+      document.getElementById('progress').style.width = Math.min((window.scrollY / t) * 100, 100) + '%';
+    }, { passive: true });
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
 </body>
 </html>

@@ -4,86 +4,151 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Beyond the Chat Box: The Case for Agent-Generated UI — Goutham Kesavan</title>
-  <meta name="description" content="Chat is the lowest common denominator of AI interfaces. Here's why the next frontier is surface-adaptive, omnichannel AI experiences — and how to build them accurately.">
+  <meta name="description" content="Chat is the lowest common denominator of AI interfaces. The next frontier is agents that generate the right experience for every surface — and do it accurately.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg:     #060914;
-      --card:   rgba(255,255,255,0.04);
-      --border: rgba(255,255,255,0.08);
-      --text:   #e2e8f0;
-      --muted:  #94a3b8;
-      --dim:    #64748b;
-      --cyan:   #22d3ee;
-      --violet: #a78bfa;
-      --orange: #fb923c;
-      --grad:   linear-gradient(135deg, #22d3ee, #a78bfa);
-      --grad2:  linear-gradient(135deg, #a78bfa, #fb923c);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
-    body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(34,211,238,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.02) 1px, transparent 1px); background-size: 64px 64px; pointer-events: none; z-index: 0; }
-    * { position: relative; z-index: 1; }
+    :root{--bg:#060914;--card:rgba(255,255,255,.04);--card-h:rgba(255,255,255,.07);--border:rgba(255,255,255,.08);--text:#e2e8f0;--muted:#94a3b8;--dim:#64748b;--cyan:#22d3ee;--violet:#a78bfa;--orange:#fb923c;--green:#4ade80;--grad:linear-gradient(135deg,#22d3ee,#a78bfa)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(34,211,238,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.02) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;z-index:0}
+    *{position:relative;z-index:1}
+    .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--grad);width:0;z-index:500;transition:width .08s linear}
+    nav{padding:20px 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(6,9,20,.85);backdrop-filter:blur(20px);position:sticky;top:0;z-index:200}
+    .nav-logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none}
+    .nav-back{color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .2s}
+    .nav-back:hover{color:var(--text)}
+    .article-wrap{max-width:720px;margin:0 auto;padding:72px 40px 120px}
+    .article-meta{display:flex;gap:12px;align-items:center;margin-bottom:32px;flex-wrap:wrap}
+    .meta-tag{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--violet);background:rgba(167,139,250,.09);border:1px solid rgba(167,139,250,.22);padding:4px 12px;border-radius:100px}
+    .meta-date,.meta-read{font-size:.8rem;color:var(--dim)}
+    .meta-dot{width:3px;height:3px;border-radius:50%;background:var(--dim);flex-shrink:0}
+    h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.9rem,5vw,2.9rem);font-weight:700;letter-spacing:-.025em;line-height:1.15;margin-bottom:20px}
+    .gradient-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .article-lede{font-size:1.12rem;color:var(--muted);line-height:1.75;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--border)}
+    .article-lede strong{color:var(--text)}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .article-body h2{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;letter-spacing:-.015em;color:var(--text);margin:52px 0 16px}
+    .article-body p{color:var(--muted);font-size:1rem;line-height:1.82;margin-bottom:20px}
+    .article-body p strong{color:var(--text)}
+    .article-body a{color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(34,211,238,.3);transition:border-color .2s}
+    .article-body a:hover{border-color:var(--cyan)}
+    .article-body ul{margin:0 0 22px 22px}
+    .article-body ul li{color:var(--muted);font-size:1rem;line-height:1.82;margin-bottom:10px}
+    .article-body ul li strong{color:var(--text)}
+    .pull-quote{font-family:'Space Grotesk',sans-serif;font-size:1.18rem;font-weight:500;color:var(--text);border-left:3px solid var(--violet);padding:6px 0 6px 24px;margin:40px 0;line-height:1.6}
+    .callout{background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.2);border-radius:12px;padding:24px 28px;margin:32px 0}
+    .callout p{color:var(--muted);margin:0;font-size:.94rem;line-height:1.75}
+    .callout p strong{color:var(--violet)}
+    .source-link{display:inline-flex;align-items:center;gap:5px;font-size:.75rem;color:var(--dim);text-decoration:none;border:1px solid var(--border);border-radius:100px;padding:3px 10px;margin:4px 4px 4px 0;transition:all .2s}
+    .source-link:hover{color:var(--violet);border-color:rgba(167,139,250,.3)}
 
-    nav { padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
-    .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
-    .nav-back { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
-    .nav-back:hover { color: var(--text); }
+    /* ── INTERACTIVE SURFACE DEMO ── */
+    .surface-demo{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin:36px 0}
+    .surface-tabs{display:flex;border-bottom:1px solid var(--border)}
+    .surface-tab{flex:1;padding:12px 8px;font-size:.8rem;font-weight:600;color:var(--dim);background:none;border:none;cursor:pointer;transition:all .2s;letter-spacing:.02em;text-align:center}
+    .surface-tab:hover{color:var(--text)}
+    .surface-tab.active{color:var(--violet);border-bottom:2px solid var(--violet);margin-bottom:-1px}
+    .surface-panel{display:none;padding:28px}
+    .surface-panel.active{display:block;animation:fadeIn .3s ease}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .surface-label{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--dim);margin-bottom:14px}
 
-    .article-wrap { max-width: 720px; margin: 0 auto; padding: 72px 40px 120px; }
-    .article-meta { display: flex; gap: 12px; align-items: center; margin-bottom: 32px; }
-    .meta-tag { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--violet); background: rgba(167,139,250,0.09); border: 1px solid rgba(167,139,250,0.22); padding: 4px 12px; border-radius: 100px; }
-    .meta-date { font-size: 0.8rem; color: var(--dim); }
-    .meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--dim); }
-    .meta-read { font-size: 0.8rem; color: var(--dim); }
-    h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 20px; }
-    .gradient-text  { background: var(--grad);  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .gradient-text2 { background: var(--grad2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .article-lede { font-size: 1.15rem; color: var(--muted); line-height: 1.7; margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
-    .article-body h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.015em; color: var(--text); margin: 48px 0 16px; }
-    .article-body p { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 20px; }
-    .article-body p strong { color: var(--text); }
-    .article-body ul { margin: 0 0 20px 20px; }
-    .article-body ul li { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 8px; }
-    .article-body ul li strong { color: var(--text); }
-    .pull-quote { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 500; color: var(--text); border-left: 3px solid var(--violet); padding: 4px 0 4px 24px; margin: 36px 0; line-height: 1.6; }
-    .callout { background: rgba(167,139,250,0.06); border: 1px solid rgba(167,139,250,0.18); border-radius: 12px; padding: 24px 28px; margin: 32px 0; }
-    .callout p { color: var(--muted); margin: 0; font-size: 0.94rem; }
-    .callout p strong { color: var(--violet); }
+    /* App mock */
+    .mock-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;max-width:320px}
+    .mock-card-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+    .mock-avatar{width:36px;height:36px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+    .mock-name{font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:600;color:var(--text)}
+    .mock-sub{font-size:.72rem;color:var(--dim)}
+    .mock-body{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:14px}
+    .mock-row{display:flex;justify-content:space-between;align-items:center;background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.15);border-radius:8px;padding:10px 14px;margin-bottom:8px}
+    .mock-row-label{font-size:.76rem;color:var(--muted)}
+    .mock-row-value{font-size:.82rem;font-weight:600;color:var(--cyan)}
+    .mock-actions{display:flex;gap:8px;margin-top:12px}
+    .mock-btn-p{background:var(--grad);color:#000;font-weight:600;font-size:.76rem;padding:8px 14px;border-radius:7px;border:none;cursor:default}
+    .mock-btn-s{background:rgba(255,255,255,.06);color:var(--muted);font-size:.76rem;padding:8px 14px;border-radius:7px;border:1px solid var(--border);cursor:default}
 
-    /* Surface table */
-    .surface-table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 0.875rem; }
-    .surface-table th { text-align: left; padding: 10px 16px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--dim); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; }
-    .surface-table td { padding: 10px 16px; border: 1px solid var(--border); color: var(--muted); vertical-align: top; }
-    .surface-table td:first-child { color: var(--text); font-weight: 500; }
+    /* Email mock */
+    .mock-email{background:#fff;border-radius:10px;padding:24px;max-width:420px;color:#1a1a1a}
+    .mock-email-header{border-bottom:1px solid #e5e7eb;padding-bottom:12px;margin-bottom:16px}
+    .mock-email-from{font-size:.76rem;color:#6b7280;margin-bottom:4px}
+    .mock-email-subject{font-size:.95rem;font-weight:700;color:#111}
+    .mock-email-body{font-size:.82rem;color:#374151;line-height:1.65}
+    .mock-email-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.78rem}
+    .mock-email-table th{background:#f3f4f6;padding:8px 10px;text-align:left;font-weight:600;color:#374151;border:1px solid #e5e7eb}
+    .mock-email-table td{padding:8px 10px;border:1px solid #e5e7eb;color:#4b5563}
+    .mock-email-cta{display:inline-block;background:#7c3aed;color:#fff;font-weight:600;font-size:.8rem;padding:10px 18px;border-radius:6px;margin-top:14px;text-decoration:none}
 
-    .related { margin-top: 80px; padding-top: 48px; border-top: 1px solid var(--border); }
-    .related-title { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--dim); margin-bottom: 24px; }
-    .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .related-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-decoration: none; transition: all 0.3s; }
-    .related-card:hover { border-color: rgba(167,139,250,0.22); transform: translateY(-3px); }
-    .related-card-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.92rem; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
-    .related-card-link { font-size: 0.78rem; color: var(--violet); }
+    /* SMS mock */
+    .mock-sms{max-width:280px}
+    .mock-sms-bubble{background:rgba(255,255,255,.08);border:1px solid var(--border);border-radius:18px 18px 18px 4px;padding:12px 16px;font-size:.83rem;color:var(--text);line-height:1.55;margin-bottom:8px}
+    .mock-sms-reply{background:rgba(124,58,237,.25);border:1px solid rgba(167,139,250,.3);border-radius:18px 18px 4px 18px;padding:12px 16px;font-size:.83rem;color:var(--violet);line-height:1.55;text-align:right;margin-left:40px}
+    .mock-sms-label{font-size:.68rem;color:var(--dim);margin-bottom:6px}
 
-    .author-card { display: flex; align-items: center; gap: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-top: 64px; }
-    .author-avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid transparent; background: linear-gradient(var(--bg), var(--bg)) padding-box, var(--grad) border-box; }
-    .author-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-    .author-bio { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
-    .author-bio a { color: var(--cyan); text-decoration: none; }
+    /* Voice mock */
+    .mock-voice{max-width:380px}
+    .mock-voice-wave{display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:20px}
+    .mock-voice-bar{width:4px;border-radius:2px;background:var(--violet);animation:wave 1.2s ease-in-out infinite}
+    .mock-voice-bar:nth-child(1){height:14px;animation-delay:0s}
+    .mock-voice-bar:nth-child(2){height:28px;animation-delay:.1s}
+    .mock-voice-bar:nth-child(3){height:20px;animation-delay:.2s}
+    .mock-voice-bar:nth-child(4){height:34px;animation-delay:.3s}
+    .mock-voice-bar:nth-child(5){height:22px;animation-delay:.4s}
+    .mock-voice-bar:nth-child(6){height:16px;animation-delay:.5s}
+    .mock-voice-bar:nth-child(7){height:28px;animation-delay:.3s}
+    @keyframes wave{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.5)}}
+    .mock-voice-text{background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.2);border-radius:12px;padding:16px;font-size:.84rem;color:var(--muted);line-height:1.7;font-style:italic}
+    .mock-voice-text strong{color:var(--violet);font-style:normal}
 
-    @media (max-width: 640px) {
-      nav { padding: 16px 24px; }
-      .article-wrap { padding: 48px 24px 80px; }
-      .related-grid { grid-template-columns: 1fr; }
-      .surface-table { font-size: 0.78rem; }
-      .author-card { flex-direction: column; text-align: center; }
+    .demo-caption{font-size:.78rem;color:var(--dim);text-align:center;padding:12px 16px;border-top:1px solid var(--border);font-style:italic}
+
+    /* Safety diagram */
+    .safety-stack{display:flex;flex-direction:column;gap:0;margin:32px 0}
+    .safety-layer{display:flex;align-items:center;gap:16px;padding:16px 20px;border:1px solid var(--border);transition:all .3s;cursor:default}
+    .safety-layer:first-child{border-radius:12px 12px 0 0}
+    .safety-layer:last-child{border-radius:0 0 12px 12px}
+    .safety-layer:not(:last-child){border-bottom:none}
+    .safety-layer:hover{background:var(--card-h);border-color:rgba(34,211,238,.2);z-index:1}
+    .safety-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+    .safety-name{font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:600;color:var(--text);margin-bottom:3px}
+    .safety-desc{font-size:.78rem;color:var(--dim)}
+
+    /* Sources */
+    .sources-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin:40px 0}
+    .sources-title{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:14px}
+    .sources-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+    .sources-list li{font-size:.82rem;color:var(--muted)}
+    .sources-list a{color:var(--violet);text-decoration:none;border-bottom:1px solid rgba(167,139,250,.25);transition:border-color .2s}
+    .sources-list a:hover{border-color:var(--violet)}
+
+    .author-card{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-top:64px}
+    .author-avatar{width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,var(--grad) border-box}
+    .author-name{font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text);margin-bottom:4px}
+    .author-bio{font-size:.82rem;color:var(--muted);line-height:1.5}
+    .author-bio a{color:var(--cyan);text-decoration:none}
+    .related{margin-top:64px;padding-top:40px;border-top:1px solid var(--border)}
+    .related-title{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .related-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-decoration:none;transition:all .3s}
+    .related-card:hover{border-color:rgba(167,139,250,.25);transform:translateY(-3px)}
+    .related-card-title{font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.4}
+    .related-card-link{font-size:.78rem;color:var(--violet)}
+
+    @media(max-width:640px){
+      nav{padding:16px 24px}
+      .article-wrap{padding:48px 24px 80px}
+      .related-grid{grid-template-columns:1fr}
+      .author-card{flex-direction:column;text-align:center}
+      .mock-email{padding:16px}
+      .surface-tab{font-size:.72rem;padding:10px 4px}
     }
   </style>
 </head>
 <body>
+  <div class="progress-bar" id="progress"></div>
   <nav>
     <a href="../index.html" class="nav-logo">GK</a>
     <a href="../index.html#blog" class="nav-back">← Back to Portfolio</a>
@@ -101,159 +166,200 @@
     <h1>Beyond the Chat Box:<br><span class="gradient-text">The Case for Agent-Generated UI</span></h1>
 
     <p class="article-lede">
-      Chat is the lowest common denominator of AI interfaces. It's where AI products go when their teams haven't yet figured out what the experience should actually be. The next frontier isn't a better chatbot — it's an agent that generates the right interface for every surface, every user, and every moment.
+      Chat is the lowest common denominator of AI interfaces. <strong>It's flexible enough to handle anything, which means it's optimized for nothing.</strong> The teams building the next generation of AI products aren't asking "how do we make the chatbot better?" — they're asking "what's the right interface for this content, on this surface, for this user?" The answer is Agent-Generated UI.
     </p>
 
     <div class="article-body">
 
-      <h2>Why Chat Falls Short</h2>
-      <p>
-        When AI products default to chat, it's not a design decision — it's an admission of uncertainty. Chat is flexible enough to handle anything, which means it's optimized for nothing.
-      </p>
-      <p>
-        Consider a healthcare context. A user asks their AI health coach about managing their diabetes. A chat interface returns several paragraphs of text: current HbA1c, recommended targets, medication reminders, lifestyle suggestions. The user reads it, processes it, tries to remember it — and most of it is lost by the time they close the app.
-      </p>
-      <p>
-        Now imagine the same information rendered as a structured dashboard: a trend line for HbA1c over 6 months, a visual medication schedule, a progress ring for today's steps, and a single clear next action. <strong>The information is identical. The outcome is not.</strong> Rich, visual structure reduces cognitive load, improves recall, and — in healthcare — demonstrably improves adherence.
-      </p>
-      <p>
-        Chat was never the destination. It was the MVP while we figured out the real product.
-      </p>
-
-      <div class="pull-quote">
-        "Chat is the lowest common denominator of AI interfaces. It's where products go when teams haven't yet figured out what the experience should actually be."
+      <div class="reveal">
+        <h2>Why Chat Falls Short</h2>
+        <p>
+          Think about the last time you booked a flight through an airline's AI assistant. You asked about options, and it returned paragraphs of text: flight times, prices, layover durations, baggage fees. You had to mentally compare, sort, and evaluate — a task the AI could have done visually in a single table.
+        </p>
+        <p>
+          Now imagine the same interaction with an agent that rendered a sortable comparison card — with prices, flight duration, airline rating, and a "Book" button — directly in the interface. Same information. Fraction of the cognitive load. Orders of magnitude more likely to convert.
+        </p>
+        <p>
+          This isn't a UX preference. <strong>Structure reduces cognitive load, improves recall, and in complex domains — financial decisions, health plans, technical support — demonstrably improves outcomes.</strong> Chat was the MVP while the industry figured out what the real AI interface should be. That period is ending.
+        </p>
       </div>
 
-      <h2>What Agent-Generated UI Is</h2>
-      <p>
-        Agent-Generated UI (AG-UI) is the idea that an AI agent, given <strong>semantic intent</strong> about what it wants to communicate, can select and populate the right UI component for that content — without a human specifying the template in advance.
-      </p>
-      <p>
-        The key distinction from traditional dynamic UI: in AG-UI, the agent isn't filling slots in a predefined template. It's reasoning about the semantic structure of the content — "this is a medication schedule," "this is a trend over time," "this is a binary decision the user needs to make" — and selecting the appropriate representation from a registered design system of components.
-      </p>
-      <p>
-        This requires three things working together:
-      </p>
-      <ul>
-        <li><strong>Semantic intent:</strong> The agent outputs structured intent about what the content is, not just what it says.</li>
-        <li><strong>A component library:</strong> A registered set of UI components (following your design system) that can represent different content types — cards, timelines, progress trackers, decision trees, data tables.</li>
-        <li><strong>Deterministic data hydration:</strong> The actual data that populates those components comes from verified sources — not inferred by the model. This is the critical safety mechanism that separates safe AG-UI from dangerous hallucination.</li>
-      </ul>
-
-      <h2>The Accuracy Problem — and How to Solve It</h2>
-      <p>
-        The reason most teams haven't built AG-UI yet is the fear that's completely legitimate: if the model is generating the UI, what stops it from populating a medication card with the wrong dosage? In healthcare, that's not a UX failure — it's a patient safety event.
-      </p>
-      <p>
-        The answer is to separate what the model decides from what the model generates:
-      </p>
-      <ul>
-        <li>The model decides <strong>intent</strong>: "Display the user's current medication schedule."</li>
-        <li>The system retrieves the data <strong>deterministically</strong> from a verified source (the EMR, the benefits system, the care plan).</li>
-        <li>The component is populated from that retrieved data — <strong>the model never touches the values.</strong></li>
-        <li>Evals and hooks validate that the displayed content matches what was retrieved before rendering.</li>
-      </ul>
-      <p>
-        The result: the richness and adaptability of AI-generated UI, with the accuracy guarantees of a traditional data-driven interface. The model contributes intelligence about presentation — not facts about reality.
-      </p>
-
-      <div class="callout">
-        <p><strong>The safety principle:</strong> In AG-UI, the model's job is to select and structure — never to generate factual content. Data comes from verified sources. The model is the curator, not the source of truth.</p>
+      <div class="reveal">
+        <div class="pull-quote">"Chat is flexible enough to handle anything, which means it's optimized for nothing. The real question is: what's the right interface for this content, on this surface, for this user?"</div>
       </div>
 
-      <h2>The Omnichannel Imperative</h2>
-      <p>
-        AG-UI becomes transformative when you extend it across surfaces. Users don't live in your app. They're in SMS threads, WhatsApp groups, email, voice assistants, and third-party chat platforms. An AI health coach that's only available in-app reaches users when they choose to open it. An omnichannel agent reaches them where they already are — which is where behaviour change actually happens.
-      </p>
-      <p>
-        The challenge: each surface has fundamentally different rendering capabilities. Here's what an intelligent agent needs to account for:
-      </p>
-
-      <table class="surface-table">
-        <thead>
-          <tr>
-            <th>Surface</th>
-            <th>UI Capabilities</th>
-            <th>Agent Adaptation</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>In-App (native)</td>
-            <td>Full UI SDK, rich components, animations</td>
-            <td>Rich card widgets, interactive elements, full design system</td>
-          </tr>
-          <tr>
-            <td>Email (HTML)</td>
-            <td>HTML/CSS (limited), no JavaScript</td>
-            <td>Structured HTML tables, inline styles, clear CTAs</td>
-          </tr>
-          <tr>
-            <td>SMS / MMS</td>
-            <td>Text, limited MMS media</td>
-            <td>Concise text with key numbers; MMS image for charts</td>
-          </tr>
-          <tr>
-            <td>WhatsApp / Messenger</td>
-            <td>Platform-native cards, buttons, lists</td>
-            <td>WhatsApp list messages, quick reply buttons, media cards</td>
-          </tr>
-          <tr>
-            <td>Chat Apps (Claude, Gemini)</td>
-            <td>Markdown, code blocks, artifacts</td>
-            <td>Structured markdown, formatted tables, clear hierarchy</td>
-          </tr>
-          <tr>
-            <td>Voice / VoIP</td>
-            <td>Audio only — no visual</td>
-            <td>Spoken summaries; key numbers verbalized; no lists</td>
-          </tr>
-          <tr>
-            <td>Push Notifications</td>
-            <td>Short text, title + body, action buttons</td>
-            <td>Single insight + single action; urgency-appropriate tone</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>
-        A well-architected omnichannel agent doesn't just send the same content to every surface. It reasons about which surface the user is on, what that surface can render, and what the most effective representation of the content is for that context. <strong>A medication reminder in voice is a spoken sentence. In-app, it's a visual timeline with a check-off button. In SMS, it's a single line with a Y/N reply prompt.</strong> Same intent. Completely different experience.
-      </p>
-
-      <div class="pull-quote">
-        "The omnichannel agent doesn't wait for users to open the app. It meets them in the moment they're already in — and speaks in the language of that surface."
+      <div class="reveal">
+        <h2>What Agent-Generated UI Actually Is</h2>
+        <p>
+          Agent-Generated UI (AG-UI) is the idea that an AI agent, given <strong>semantic intent</strong> about what it wants to communicate, can select and populate the right UI component — without a human pre-specifying the template for every possible content type.
+        </p>
+        <p>
+          The key distinction from traditional dynamic UI: the agent isn't filling slots in a predefined template. It's reasoning about the <em>type</em> of content — "this is a comparison of options," "this is a sequential process," "this is a single binary decision" — and selecting the right representation from a registered component library that follows your design system.
+        </p>
+        <p>
+          The technical foundation is the <a href="https://github.com/ag-ui-protocol/ag-ui" target="_blank" rel="noopener">AG-UI open protocol</a> (from the CopilotKit ecosystem), which defines how agents communicate structured UI intent in a serializable way that front-end renderers can consume. This decouples the agent's reasoning from the rendering layer — which is what makes omnichannel possible.
+        </p>
+        <a href="https://github.com/ag-ui-protocol/ag-ui" target="_blank" rel="noopener" class="source-link">↗ AG-UI Protocol on GitHub</a>
+        <a href="https://docs.copilotkit.ai" target="_blank" rel="noopener" class="source-link">↗ CopilotKit Documentation</a>
       </div>
 
-      <h2>The Protocols Making This Possible</h2>
-      <p>
-        Two emerging protocols are making AG-UI more tractable at scale:
-      </p>
-      <p>
-        <strong>AG-UI</strong> is an open protocol for streaming rich agent interactions — it defines how agents communicate their UI intent in a structured, serializable way that can be consumed by front-end renderers. This makes it possible to decouple the agent's reasoning from the rendering layer, which is essential for omnichannel deployment.
-      </p>
-      <p>
-        <strong>A2UI</strong> (Agent-to-UI) is a complementary standard for mapping agent semantic intent to design system components. A common misconception — one I've had to correct in engineering reviews — is that A2UI is tied to a specific design system (it isn't). It's a protocol layer. Your design system sits above it; A2UI provides the bridge between agent intent and component selection.
-      </p>
-      <p>
-        Together with MCP for tool access, these protocols form the foundation of what will become standard architecture for intelligent, multi-surface AI products over the next two to three years.
-      </p>
+      <div class="reveal">
+        <h2>The Accuracy Problem — and How to Solve It</h2>
+        <p>
+          The reason most teams haven't built this yet is a legitimate concern: if the model is deciding which UI component to show, what stops it from populating a price comparison card with hallucinated numbers? In finance, that's a compliance failure. In healthcare, it's a safety event. In e-commerce, it erodes trust the moment a user spots it.
+        </p>
+        <p>
+          The answer is to separate what the model <em>decides</em> from what the model <em>generates</em>:
+        </p>
+        <ul>
+          <li>The model decides <strong>intent</strong>: "Display a comparison of these three flight options."</li>
+          <li>The system retrieves the actual data <strong>deterministically</strong> from a verified source (the airline API, the inventory system, the database).</li>
+          <li>The component is populated from retrieved data — <strong>the model never touches the values.</strong></li>
+          <li>Evals and validation hooks confirm the displayed content matches the source before rendering.</li>
+        </ul>
+        <p>
+          Result: the adaptability of AI-generated UI, with the accuracy guarantees of a traditional data-driven interface. The model contributes intelligence about <em>presentation</em> — not facts about reality.
+        </p>
+      </div>
 
-      <h2>What to Build Now</h2>
-      <p>
-        AG-UI is still early. Most teams haven't implemented it. That's an opportunity — but only if you start building the foundation now:
-      </p>
-      <ul>
-        <li><strong>Audit your design system for component semantics.</strong> Every component should have a clear semantic type — not just a visual name. "Medication card" not "info-card-variant-3." Agents need to reason about components by what they represent, not how they look.</li>
-        <li><strong>Separate intent from data in your agent outputs.</strong> Start structuring your agent responses to include semantic intent alongside content. This is the architectural prerequisite for AG-UI.</li>
-        <li><strong>Build surface-awareness into your agent architecture.</strong> The agent should know which surface it's rendering for. Start with two or three surfaces and add more. Don't try to support all seven simultaneously on day one.</li>
-        <li><strong>Invest in evals for rendering accuracy.</strong> Test that the right component is selected for the right content type, and that data hydration is accurate. Rendering evals are different from response quality evals — don't conflate them.</li>
-      </ul>
-      <p>
-        The teams who start building this infrastructure today won't just have a better product. They'll have a platform that can adapt to surfaces and interaction patterns that don't exist yet — because the architecture is built for surface-agnostic intelligence, not for any specific rendering environment.
-      </p>
-      <p>
-        The chat box was where we started. It shouldn't be where we stop.
-      </p>
+      <div class="reveal">
+        <h2>See It in Action: One Piece of Content, Four Surfaces</h2>
+        <p>Below is the same travel booking confirmation rendered by an AI agent across four different surfaces. The semantic intent is identical — only the surface changes.</p>
+      </div>
+
+      <!-- ── INTERACTIVE DEMO ── -->
+      <div class="surface-demo reveal">
+        <div class="surface-tabs">
+          <button class="surface-tab active" data-panel="app">📱 In-App</button>
+          <button class="surface-tab" data-panel="email">📧 Email</button>
+          <button class="surface-tab" data-panel="sms">💬 SMS</button>
+          <button class="surface-tab" data-panel="voice">🎙️ Voice</button>
+        </div>
+
+        <div class="surface-panel active" id="panel-app">
+          <div class="surface-label">Rich native card — full UI SDK</div>
+          <div class="mock-card">
+            <div class="mock-card-header">
+              <div class="mock-avatar">✈️</div>
+              <div>
+                <div class="mock-name">Your Trip to New York</div>
+                <div class="mock-sub">Booking confirmed · 2 passengers</div>
+              </div>
+            </div>
+            <div class="mock-row">
+              <span class="mock-row-label">Departure</span>
+              <span class="mock-row-value">SFO → JFK · 9:45 AM</span>
+            </div>
+            <div class="mock-row">
+              <span class="mock-row-label">Duration</span>
+              <span class="mock-row-value">5h 35m · Non-stop</span>
+            </div>
+            <div class="mock-row">
+              <span class="mock-row-label">Total Paid</span>
+              <span class="mock-row-value">$486.00</span>
+            </div>
+            <div class="mock-actions">
+              <button class="mock-btn-p">View Boarding Pass</button>
+              <button class="mock-btn-s">Add to Calendar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="surface-panel" id="panel-email">
+          <div class="surface-label">Structured HTML — rendered in email client</div>
+          <div class="mock-email">
+            <div class="mock-email-header">
+              <div class="mock-email-from">From: travel-agent@myapp.com</div>
+              <div class="mock-email-subject">✈️ Your booking is confirmed — SFO to JFK</div>
+            </div>
+            <div class="mock-email-body">
+              <p style="margin-bottom:12px">Hi Alex, your trip is all set. Here's your booking summary:</p>
+              <table class="mock-email-table">
+                <tr><th>Detail</th><th>Info</th></tr>
+                <tr><td>Route</td><td>SFO → JFK (Non-stop)</td></tr>
+                <tr><td>Date &amp; Time</td><td>June 14 · 9:45 AM</td></tr>
+                <tr><td>Passengers</td><td>2 Adults</td></tr>
+                <tr><td>Total Charged</td><td><strong>$486.00</strong></td></tr>
+              </table>
+              <a class="mock-email-cta">Download Boarding Passes</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="surface-panel" id="panel-sms">
+          <div class="surface-label">Concise text — optimized for SMS/MMS</div>
+          <div class="mock-sms">
+            <div class="mock-sms-label">Agent → You</div>
+            <div class="mock-sms-bubble">✈️ Booking confirmed! SFO→JFK on June 14 at 9:45 AM (non-stop). Total: $486.00 for 2 pax. Reply PASS for boarding passes or HELP for changes.</div>
+            <div class="mock-sms-reply">PASS</div>
+            <div class="mock-sms-bubble">Your boarding passes: [link] Valid until 1hr before departure. Gate info will update 2hrs out. Safe travels! 🙌</div>
+          </div>
+        </div>
+
+        <div class="surface-panel" id="panel-voice">
+          <div class="surface-label">Spoken narration — no visuals, audio-optimized</div>
+          <div class="mock-voice">
+            <div class="mock-voice-wave">
+              <div class="mock-voice-bar"></div>
+              <div class="mock-voice-bar"></div>
+              <div class="mock-voice-bar"></div>
+              <div class="mock-voice-bar"></div>
+              <div class="mock-voice-bar"></div>
+              <div class="mock-voice-bar"></div>
+              <div class="mock-voice-bar"></div>
+            </div>
+            <div class="mock-voice-text">
+              "Great news — your booking is confirmed. You're flying from <strong>San Francisco to JFK</strong> on <strong>June 14th</strong>, departing at <strong>9:45 in the morning</strong>. It's a non-stop flight, about five and a half hours. Total charged to your card was <strong>four hundred and eighty-six dollars</strong>. Would you like me to send your boarding passes to your email, or set a check-in reminder for tomorrow morning?"
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-caption">Same semantic intent. Same verified data. Completely different rendering — adapted to what each surface can express.</div>
+      </div>
+
+      <div class="reveal">
+        <h2>The Omnichannel Imperative</h2>
+        <p>
+          AG-UI becomes transformative when you extend it across every surface a user inhabits. Users don't live in your app. They're in text threads, email inboxes, WhatsApp, voice assistants, and third-party chat platforms. An AI that's only good in-app is only available when the user chooses to open it.
+        </p>
+        <p>
+          An omnichannel AI agent reaches users in the moment — which is where behavior actually changes. A financial app that reminds you about an unusual charge via SMS, summarizes it in email, and answers follow-up questions in-app is categorically more useful than one that requires you to open the app to get any of that.
+        </p>
+        <p>
+          The architectural challenge: each surface has fundamentally different rendering capabilities, constraints, and user expectations. The agent needs to know not just <em>what</em> to communicate, but <em>how</em> that surface can express it — and adapt accordingly. Voice cannot show lists; it narrates them. SMS has character limits and no interactivity beyond reply keywords. Email can use HTML but no JavaScript. Chat apps have their own component formats.
+        </p>
+        <p>
+          A well-designed AG-UI layer handles these constraints automatically — mapping semantic intent to the richest available representation on each surface, gracefully degrading where constraints apply.
+        </p>
+      </div>
+
+      <div class="reveal">
+        <div class="pull-quote">"An AI that meets users on every surface they already use is not a feature — it's a fundamentally different product. It's the difference between a tool you open and a partner that's always with you."</div>
+      </div>
+
+      <div class="reveal">
+        <h2>What to Build Now</h2>
+        <p>
+          AG-UI is early but moving fast. Here's how to position your product for it:
+        </p>
+        <ul>
+          <li><strong>Give your design system semantic types.</strong> Components need names that describe what they <em>mean</em>, not just how they look. "Comparison card" not "info-card-v3." Agents reason about components by semantic type.</li>
+          <li><strong>Separate intent from data in your agent outputs.</strong> Start structuring responses to include semantic intent alongside content. This is the architectural prerequisite: intent → hydration → render.</li>
+          <li><strong>Build surface awareness into your agent layer.</strong> The agent should know which surface it's addressing. Start with two or three surfaces before scaling to seven.</li>
+          <li><strong>Invest in rendering evals early.</strong> Test that the right component is selected for the right content type, and that data hydration is accurate across surfaces. These are distinct from response quality evals.</li>
+          <li><strong>Explore the AG-UI protocol.</strong> It's open source, actively maintained, and already has production deployments. Starting from scratch on this architecture is unnecessary.</li>
+        </ul>
+      </div>
+
+      <div class="sources-box reveal">
+        <div class="sources-title">References &amp; Further Reading</div>
+        <ul class="sources-list">
+          <li><a href="https://github.com/ag-ui-protocol/ag-ui" target="_blank" rel="noopener">AG-UI Protocol — GitHub (Open Source)</a></li>
+          <li><a href="https://docs.copilotkit.ai" target="_blank" rel="noopener">CopilotKit Documentation</a> — Framework implementing AG-UI</li>
+          <li><a href="https://www.anthropic.com/news/model-context-protocol" target="_blank" rel="noopener">Anthropic: Model Context Protocol</a> — Tool access standard enabling rich agent-to-system connections</li>
+          <li><a href="https://www.nngroup.com/articles/chatbots-ai-ux/" target="_blank" rel="noopener">Nielsen Norman Group: AI Chatbot UX Research</a> — Evidence on conversational vs. structured AI interfaces</li>
+        </ul>
+      </div>
 
     </div>
 
@@ -261,7 +367,7 @@
       <img src="../assets/profile.png" alt="Goutham Kesavan" class="author-avatar">
       <div>
         <div class="author-name">Goutham Kesavan</div>
-        <div class="author-bio">Senior Principal PM who pioneered Agent-Generated UI in healthcare AI. Formerly Hotstar, Inkbox, Moonfrog. <a href="https://www.linkedin.com/in/kgouthamk/" target="_blank" rel="noopener">Connect on LinkedIn →</a></div>
+        <div class="author-bio">Pioneered Agent-Generated UI in production — omnichannel AI across 7+ surfaces. Senior Principal PM · Agentic AI. <a href="https://www.linkedin.com/in/kgouthamk/" target="_blank" rel="noopener">Connect on LinkedIn →</a></div>
       </div>
     </div>
 
@@ -269,15 +375,43 @@
       <div class="related-title">More Essays</div>
       <div class="related-grid">
         <a href="orchestration-moat.html" class="related-card">
-          <div class="related-card-title">The Real AI Moat: Why Orchestration Beats Models</div>
+          <div class="related-card-title">The Real AI Moat: Why Orchestration Is Winning</div>
           <div class="related-card-link">Read essay →</div>
         </a>
         <a href="ai-safety-healthcare.html" class="related-card">
-          <div class="related-card-title">Why AI Safety in Healthcare Doesn't Slow You Down</div>
+          <div class="related-card-title">Building AI That Organizations Actually Trust</div>
           <div class="related-card-link">Read essay →</div>
         </a>
       </div>
     </div>
   </div>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const t = document.documentElement.scrollHeight - window.innerHeight;
+      document.getElementById('progress').style.width = Math.min((window.scrollY / t) * 100, 100) + '%';
+    }, { passive: true });
+
+    // Surface tabs
+    document.querySelectorAll('.surface-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.surface-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.surface-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+      });
+    });
+
+    // Reveal
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
 </body>
 </html>

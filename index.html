@@ -381,13 +381,13 @@
           <strong>The problem:</strong> Healthcare AI was trapped in a text box. At League, we were building an AI Health Coach — but a plain chat interface creates friction at exactly the moment users need clarity. Rich, visual experiences don't just look better; in healthcare, they lead to meaningfully better outcomes. The challenge: we needed the agent to render care plans as structured cards, medication schedules as visual timelines, and health metrics as clear summaries — not walls of text. But building bespoke UI for every surface and every content type wasn't scalable.
         </p>
         <p>
-          <strong>My conviction:</strong> I advocated strongly for Agent-Generated UI — the idea that an agent, given clear semantic intent and the right protocols, could generate surface-appropriate rich UI components on the fly, without hallucinating data. I saw protocols like AG-UI and A2UI as the enabling layer. The hard part wasn't the idea — it was making it accurate. In healthcare, a hallucinated medication dosage in a UI widget isn't a bad experience, it's a safety failure. So I designed a system with <strong>deterministic data hydration driven by semantic intent, validated through evals and hooks</strong>, so the visual richness was never at the cost of accuracy.
+          <strong>The approach:</strong> I drove the vision for Agent-Generated UI — the idea that an agent, given structured semantic intent and the right protocols, could select and populate the right UI component for any content, on any surface, without sacrificing accuracy. The enabling layer: open protocols like <a href="https://github.com/ag-ui-protocol/ag-ui" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">AG-UI</a> alongside our proprietary design system. The hard part wasn’t the concept — it was proving accuracy at scale. An AI-populated UI component with incorrect data is not a UX problem — it’s a trust failure. The solution: <strong>deterministic data hydration driven by semantic intent, validated through evals and hooks</strong>, so visual richness never came at the cost of reliability.
         </p>
         <div class="cs-pull">
-          "The product managers thought A2UI was locked to Google's design system and wouldn't be widely adopted. I built a working prototype in under a month to show them it was wrong — and to prove what was actually possible."
+          “Rather than debate the architecture in meetings, I built a working prototype — uniting open agent-UI protocols with our proprietary design system in under a month. Showing is always faster than telling.”
         </div>
         <p>
-          <strong>The execution:</strong> I built the prototype using CopilotKit, A2UI, and our proprietary design system. The agent could take a piece of health content — say, a personalized care recommendation — and render it as a rich card widget in-app, as structured HTML in email, as MMS-formatted content in SMS, and as audio narration for voice. The same semantic intent, adapting to wherever the user was. I wrote evals to validate that the rendered content was always accurate — no data was inferred or generated, only hydrated from verified sources.
+          <strong>The execution:</strong> Building the prototype was as much an exercise in cross-functional leadership as it was in engineering. Working closely with product, engineering, and design partners, we aligned around the architecture through a live demonstration — addressing natural questions about protocol portability, design system compatibility, and performance through a working system rather than a slide deck. The prototype used <a href="https://copilotkit.ai" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">CopilotKit</a> and AG-UI to render the same content as a rich card widget in-app, as structured HTML in email, as concise formatted content in SMS, and as audio narration for voice. Same semantic intent — adapting intelligently to every surface. Evals validated that rendered content always matched verified source data: nothing inferred, nothing fabricated.
         </p>
         <p>
           <strong>The surfaces the agent now supports:</strong>
@@ -402,7 +402,7 @@
           <span class="cs-channel">Push Notifications</span>
         </div>
         <p>
-          <strong>The outcome:</strong> When stakeholders saw the prototype, their reaction was "this is magical." Not because it was flashy — because it worked exactly as promised, reached users on every surface they already use, and did it safely. What started as a prototype I built in a month became a foundational architecture for League's AI platform. The AI Health Coach is no longer a chatbot — it's an <strong>omnichannel intelligent partner</strong> that meets users where they are and communicates in the format that surface allows.
+          <strong>The outcome:</strong> The team’s reaction when we demonstrated the prototype was that it felt magical — not because of visual polish, but because it did what the theory promised: the same intelligence adapting seamlessly to every surface and context. What started as a month-long prototype became a foundational platform architecture, transforming the agent from a conversational interface into a true <strong>omnichannel intelligent partner</strong> — one that meets users wherever they already are and communicates in the language of that surface.
         </p>
       </div>
       <div class="cs-outcomes">
@@ -637,7 +637,7 @@
           <span class="blog-dot"></span>
           <span class="blog-read-time">7 min read</span>
         </div>
-        <div class="blog-title">The Real AI Moat: Why Orchestration Beats Models</div>
+        <div class="blog-title">The Real AI Moat: Why Orchestration Is Winning</div>
         <div class="blog-excerpt">Everyone has access to the same frontier models. The teams that win aren't choosing better models — they're building better orchestration underneath them.</div>
         <span class="blog-link">Read essay →</span>
       </a>
@@ -657,8 +657,8 @@
           <span class="blog-dot"></span>
           <span class="blog-read-time">6 min read</span>
         </div>
-        <div class="blog-title">Why AI Safety in Healthcare Doesn't Slow You Down — It Speeds You Up</div>
-        <div class="blog-excerpt">The conventional wisdom is wrong. Building HIPAA-compliant, clinically safe AI doesn't slow you down. Done right, it's the fastest path to trust, adoption, and durable differentiation.</div>
+        <div class="blog-title">Building AI That Organizations Actually Trust</div>
+        <div class="blog-excerpt">The teams shipping AI in regulated, high-stakes domains aren't slowed down by safety requirements — they're accelerated by them. Here's the framework that makes the difference.</div>
         <span class="blog-link">Read essay →</span>
       </a>
     </div>
