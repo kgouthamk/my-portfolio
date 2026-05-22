@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beyond the Chat Box: The Case for Agent-Generated UI — Goutham Kesavan</title>
+  <meta name="description" content="Chat is the lowest common denominator of AI interfaces. Here's why the next frontier is surface-adaptive, omnichannel AI experiences — and how to build them accurately.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:     #060914;
+      --card:   rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --text:   #e2e8f0;
+      --muted:  #94a3b8;
+      --dim:    #64748b;
+      --cyan:   #22d3ee;
+      --violet: #a78bfa;
+      --orange: #fb923c;
+      --grad:   linear-gradient(135deg, #22d3ee, #a78bfa);
+      --grad2:  linear-gradient(135deg, #a78bfa, #fb923c);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(34,211,238,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.02) 1px, transparent 1px); background-size: 64px 64px; pointer-events: none; z-index: 0; }
+    * { position: relative; z-index: 1; }
+
+    nav { padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
+    .nav-back { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--text); }
+
+    .article-wrap { max-width: 720px; margin: 0 auto; padding: 72px 40px 120px; }
+    .article-meta { display: flex; gap: 12px; align-items: center; margin-bottom: 32px; }
+    .meta-tag { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--violet); background: rgba(167,139,250,0.09); border: 1px solid rgba(167,139,250,0.22); padding: 4px 12px; border-radius: 100px; }
+    .meta-date { font-size: 0.8rem; color: var(--dim); }
+    .meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--dim); }
+    .meta-read { font-size: 0.8rem; color: var(--dim); }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 20px; }
+    .gradient-text  { background: var(--grad);  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .gradient-text2 { background: var(--grad2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .article-lede { font-size: 1.15rem; color: var(--muted); line-height: 1.7; margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
+    .article-body h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.015em; color: var(--text); margin: 48px 0 16px; }
+    .article-body p { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 20px; }
+    .article-body p strong { color: var(--text); }
+    .article-body ul { margin: 0 0 20px 20px; }
+    .article-body ul li { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 8px; }
+    .article-body ul li strong { color: var(--text); }
+    .pull-quote { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 500; color: var(--text); border-left: 3px solid var(--violet); padding: 4px 0 4px 24px; margin: 36px 0; line-height: 1.6; }
+    .callout { background: rgba(167,139,250,0.06); border: 1px solid rgba(167,139,250,0.18); border-radius: 12px; padding: 24px 28px; margin: 32px 0; }
+    .callout p { color: var(--muted); margin: 0; font-size: 0.94rem; }
+    .callout p strong { color: var(--violet); }
+
+    /* Surface table */
+    .surface-table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 0.875rem; }
+    .surface-table th { text-align: left; padding: 10px 16px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--dim); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    .surface-table td { padding: 10px 16px; border: 1px solid var(--border); color: var(--muted); vertical-align: top; }
+    .surface-table td:first-child { color: var(--text); font-weight: 500; }
+
+    .related { margin-top: 80px; padding-top: 48px; border-top: 1px solid var(--border); }
+    .related-title { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--dim); margin-bottom: 24px; }
+    .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .related-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-decoration: none; transition: all 0.3s; }
+    .related-card:hover { border-color: rgba(167,139,250,0.22); transform: translateY(-3px); }
+    .related-card-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.92rem; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+    .related-card-link { font-size: 0.78rem; color: var(--violet); }
+
+    .author-card { display: flex; align-items: center; gap: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-top: 64px; }
+    .author-avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid transparent; background: linear-gradient(var(--bg), var(--bg)) padding-box, var(--grad) border-box; }
+    .author-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .author-bio { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+    .author-bio a { color: var(--cyan); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 24px; }
+      .article-wrap { padding: 48px 24px 80px; }
+      .related-grid { grid-template-columns: 1fr; }
+      .surface-table { font-size: 0.78rem; }
+      .author-card { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="../index.html" class="nav-logo">GK</a>
+    <a href="../index.html#blog" class="nav-back">← Back to Portfolio</a>
+  </nav>
+
+  <div class="article-wrap">
+    <div class="article-meta">
+      <span class="meta-tag">AI Product Design</span>
+      <span class="meta-dot"></span>
+      <span class="meta-date">May 2026</span>
+      <span class="meta-dot"></span>
+      <span class="meta-read">8 min read</span>
+    </div>
+
+    <h1>Beyond the Chat Box:<br><span class="gradient-text">The Case for Agent-Generated UI</span></h1>
+
+    <p class="article-lede">
+      Chat is the lowest common denominator of AI interfaces. It's where AI products go when their teams haven't yet figured out what the experience should actually be. The next frontier isn't a better chatbot — it's an agent that generates the right interface for every surface, every user, and every moment.
+    </p>
+
+    <div class="article-body">
+
+      <h2>Why Chat Falls Short</h2>
+      <p>
+        When AI products default to chat, it's not a design decision — it's an admission of uncertainty. Chat is flexible enough to handle anything, which means it's optimized for nothing.
+      </p>
+      <p>
+        Consider a healthcare context. A user asks their AI health coach about managing their diabetes. A chat interface returns several paragraphs of text: current HbA1c, recommended targets, medication reminders, lifestyle suggestions. The user reads it, processes it, tries to remember it — and most of it is lost by the time they close the app.
+      </p>
+      <p>
+        Now imagine the same information rendered as a structured dashboard: a trend line for HbA1c over 6 months, a visual medication schedule, a progress ring for today's steps, and a single clear next action. <strong>The information is identical. The outcome is not.</strong> Rich, visual structure reduces cognitive load, improves recall, and — in healthcare — demonstrably improves adherence.
+      </p>
+      <p>
+        Chat was never the destination. It was the MVP while we figured out the real product.
+      </p>
+
+      <div class="pull-quote">
+        "Chat is the lowest common denominator of AI interfaces. It's where products go when teams haven't yet figured out what the experience should actually be."
+      </div>
+
+      <h2>What Agent-Generated UI Is</h2>
+      <p>
+        Agent-Generated UI (AG-UI) is the idea that an AI agent, given <strong>semantic intent</strong> about what it wants to communicate, can select and populate the right UI component for that content — without a human specifying the template in advance.
+      </p>
+      <p>
+        The key distinction from traditional dynamic UI: in AG-UI, the agent isn't filling slots in a predefined template. It's reasoning about the semantic structure of the content — "this is a medication schedule," "this is a trend over time," "this is a binary decision the user needs to make" — and selecting the appropriate representation from a registered design system of components.
+      </p>
+      <p>
+        This requires three things working together:
+      </p>
+      <ul>
+        <li><strong>Semantic intent:</strong> The agent outputs structured intent about what the content is, not just what it says.</li>
+        <li><strong>A component library:</strong> A registered set of UI components (following your design system) that can represent different content types — cards, timelines, progress trackers, decision trees, data tables.</li>
+        <li><strong>Deterministic data hydration:</strong> The actual data that populates those components comes from verified sources — not inferred by the model. This is the critical safety mechanism that separates safe AG-UI from dangerous hallucination.</li>
+      </ul>
+
+      <h2>The Accuracy Problem — and How to Solve It</h2>
+      <p>
+        The reason most teams haven't built AG-UI yet is the fear that's completely legitimate: if the model is generating the UI, what stops it from populating a medication card with the wrong dosage? In healthcare, that's not a UX failure — it's a patient safety event.
+      </p>
+      <p>
+        The answer is to separate what the model decides from what the model generates:
+      </p>
+      <ul>
+        <li>The model decides <strong>intent</strong>: "Display the user's current medication schedule."</li>
+        <li>The system retrieves the data <strong>deterministically</strong> from a verified source (the EMR, the benefits system, the care plan).</li>
+        <li>The component is populated from that retrieved data — <strong>the model never touches the values.</strong></li>
+        <li>Evals and hooks validate that the displayed content matches what was retrieved before rendering.</li>
+      </ul>
+      <p>
+        The result: the richness and adaptability of AI-generated UI, with the accuracy guarantees of a traditional data-driven interface. The model contributes intelligence about presentation — not facts about reality.
+      </p>
+
+      <div class="callout">
+        <p><strong>The safety principle:</strong> In AG-UI, the model's job is to select and structure — never to generate factual content. Data comes from verified sources. The model is the curator, not the source of truth.</p>
+      </div>
+
+      <h2>The Omnichannel Imperative</h2>
+      <p>
+        AG-UI becomes transformative when you extend it across surfaces. Users don't live in your app. They're in SMS threads, WhatsApp groups, email, voice assistants, and third-party chat platforms. An AI health coach that's only available in-app reaches users when they choose to open it. An omnichannel agent reaches them where they already are — which is where behaviour change actually happens.
+      </p>
+      <p>
+        The challenge: each surface has fundamentally different rendering capabilities. Here's what an intelligent agent needs to account for:
+      </p>
+
+      <table class="surface-table">
+        <thead>
+          <tr>
+            <th>Surface</th>
+            <th>UI Capabilities</th>
+            <th>Agent Adaptation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>In-App (native)</td>
+            <td>Full UI SDK, rich components, animations</td>
+            <td>Rich card widgets, interactive elements, full design system</td>
+          </tr>
+          <tr>
+            <td>Email (HTML)</td>
+            <td>HTML/CSS (limited), no JavaScript</td>
+            <td>Structured HTML tables, inline styles, clear CTAs</td>
+          </tr>
+          <tr>
+            <td>SMS / MMS</td>
+            <td>Text, limited MMS media</td>
+            <td>Concise text with key numbers; MMS image for charts</td>
+          </tr>
+          <tr>
+            <td>WhatsApp / Messenger</td>
+            <td>Platform-native cards, buttons, lists</td>
+            <td>WhatsApp list messages, quick reply buttons, media cards</td>
+          </tr>
+          <tr>
+            <td>Chat Apps (Claude, Gemini)</td>
+            <td>Markdown, code blocks, artifacts</td>
+            <td>Structured markdown, formatted tables, clear hierarchy</td>
+          </tr>
+          <tr>
+            <td>Voice / VoIP</td>
+            <td>Audio only — no visual</td>
+            <td>Spoken summaries; key numbers verbalized; no lists</td>
+          </tr>
+          <tr>
+            <td>Push Notifications</td>
+            <td>Short text, title + body, action buttons</td>
+            <td>Single insight + single action; urgency-appropriate tone</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        A well-architected omnichannel agent doesn't just send the same content to every surface. It reasons about which surface the user is on, what that surface can render, and what the most effective representation of the content is for that context. <strong>A medication reminder in voice is a spoken sentence. In-app, it's a visual timeline with a check-off button. In SMS, it's a single line with a Y/N reply prompt.</strong> Same intent. Completely different experience.
+      </p>
+
+      <div class="pull-quote">
+        "The omnichannel agent doesn't wait for users to open the app. It meets them in the moment they're already in — and speaks in the language of that surface."
+      </div>
+
+      <h2>The Protocols Making This Possible</h2>
+      <p>
+        Two emerging protocols are making AG-UI more tractable at scale:
+      </p>
+      <p>
+        <strong>AG-UI</strong> is an open protocol for streaming rich agent interactions — it defines how agents communicate their UI intent in a structured, serializable way that can be consumed by front-end renderers. This makes it possible to decouple the agent's reasoning from the rendering layer, which is essential for omnichannel deployment.
+      </p>
+      <p>
+        <strong>A2UI</strong> (Agent-to-UI) is a complementary standard for mapping agent semantic intent to design system components. A common misconception — one I've had to correct in engineering reviews — is that A2UI is tied to a specific design system (it isn't). It's a protocol layer. Your design system sits above it; A2UI provides the bridge between agent intent and component selection.
+      </p>
+      <p>
+        Together with MCP for tool access, these protocols form the foundation of what will become standard architecture for intelligent, multi-surface AI products over the next two to three years.
+      </p>
+
+      <h2>What to Build Now</h2>
+      <p>
+        AG-UI is still early. Most teams haven't implemented it. That's an opportunity — but only if you start building the foundation now:
+      </p>
+      <ul>
+        <li><strong>Audit your design system for component semantics.</strong> Every component should have a clear semantic type — not just a visual name. "Medication card" not "info-card-variant-3." Agents need to reason about components by what they represent, not how they look.</li>
+        <li><strong>Separate intent from data in your agent outputs.</strong> Start structuring your agent responses to include semantic intent alongside content. This is the architectural prerequisite for AG-UI.</li>
+        <li><strong>Build surface-awareness into your agent architecture.</strong> The agent should know which surface it's rendering for. Start with two or three surfaces and add more. Don't try to support all seven simultaneously on day one.</li>
+        <li><strong>Invest in evals for rendering accuracy.</strong> Test that the right component is selected for the right content type, and that data hydration is accurate. Rendering evals are different from response quality evals — don't conflate them.</li>
+      </ul>
+      <p>
+        The teams who start building this infrastructure today won't just have a better product. They'll have a platform that can adapt to surfaces and interaction patterns that don't exist yet — because the architecture is built for surface-agnostic intelligence, not for any specific rendering environment.
+      </p>
+      <p>
+        The chat box was where we started. It shouldn't be where we stop.
+      </p>
+
+    </div>
+
+    <div class="author-card">
+      <img src="../assets/profile.png" alt="Goutham Kesavan" class="author-avatar">
+      <div>
+        <div class="author-name">Goutham Kesavan</div>
+        <div class="author-bio">Senior Principal PM who pioneered Agent-Generated UI in healthcare AI. Formerly Hotstar, Inkbox, Moonfrog. <a href="https://www.linkedin.com/in/kgouthamk/" target="_blank" rel="noopener">Connect on LinkedIn →</a></div>
+      </div>
+    </div>
+
+    <div class="related">
+      <div class="related-title">More Essays</div>
+      <div class="related-grid">
+        <a href="orchestration-moat.html" class="related-card">
+          <div class="related-card-title">The Real AI Moat: Why Orchestration Beats Models</div>
+          <div class="related-card-link">Read essay →</div>
+        </a>
+        <a href="ai-safety-healthcare.html" class="related-card">
+          <div class="related-card-title">Why AI Safety in Healthcare Doesn't Slow You Down</div>
+          <div class="related-card-link">Read essay →</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
