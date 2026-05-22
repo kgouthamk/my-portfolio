@@ -6,7 +6,7 @@
   <title>Goutham Kesavan — AI Product Leader</title>
   <meta name="description" content="Senior Principal PM specializing in Agentic AI. 15+ years building transformative products that scale to millions of users across Healthcare, Media, Gaming & E-commerce.">
   <meta property="og:title" content="Goutham Kesavan — AI Product Leader">
-  <meta property="og:description" content="I turn ambitious AI bets into products that actually ship and scale.">
+  <meta property="og:description" content="I turn ambitious AI bets into products that create real business value.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -71,12 +71,12 @@
     /* ── HELPERS ── */
     .gradient-text  { background: var(--grad);  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .gradient-text2 { background: var(--grad2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .section-wrap { max-width: 1080px; margin: 0 auto; padding: 88px 40px; }
+    .section-wrap { max-width: 1080px; margin: 0 auto; padding: 88px 40px; scroll-margin-top: 80px; }
     .section-tag { display: inline-block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--cyan); margin-bottom: 14px; }
     .section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.9rem, 4vw, 2.75rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 16px; }
     .section-desc { color: var(--muted); font-size: 1rem; max-width: 520px; margin-bottom: 52px; }
     .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent); max-width: 1080px; margin: 0 auto; }
-    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; will-change: transform, opacity; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     /* ── HERO ── */
@@ -255,7 +255,7 @@
     <h1>
       I turn ambitious<br>
       <span class="gradient-text">AI bets</span> into<br>
-      products that ship.
+      products that <span class="gradient-text2">create business value</span>.
     </h1>
     <p class="hero-sub">
       Most AI products are wrappers. <em>The real differentiation is in the orchestration underneath</em> —
@@ -297,7 +297,7 @@
   <div class="section-wrap" id="about">
     <div class="fade-up">
       <span class="section-tag">About Me</span>
-      <h2 class="section-title">I'm not a typical PM.<br><span class="gradient-text">I architect alongside engineers.</span></h2>
+      <h2 class="section-title">I'm not a typical PM.<br><span class="gradient-text">I work deep at the technical frontier.</span></h2>
     </div>
     <div class="about-grid">
       <div class="about-text fade-up">
@@ -381,13 +381,13 @@
           <strong>The problem:</strong> Healthcare AI was trapped in a text box. At League, we were building an AI Health Coach — but a plain chat interface creates friction at exactly the moment users need clarity. Rich, visual experiences don't just look better; in healthcare, they lead to meaningfully better outcomes. The challenge: we needed the agent to render care plans as structured cards, medication schedules as visual timelines, and health metrics as clear summaries — not walls of text. But building bespoke UI for every surface and every content type wasn't scalable.
         </p>
         <p>
-          <strong>The approach:</strong> I drove the vision for Agent-Generated UI — the idea that an agent, given structured semantic intent and the right protocols, could select and populate the right UI component for any content, on any surface, without sacrificing accuracy. The enabling layer: open protocols like <a href="https://github.com/ag-ui-protocol/ag-ui" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">AG-UI</a> alongside our proprietary design system. The hard part wasn’t the concept — it was proving accuracy at scale. An AI-populated UI component with incorrect data is not a UX problem — it’s a trust failure. The solution: <strong>deterministic data hydration driven by semantic intent, validated through evals and hooks</strong>, so visual richness never came at the cost of reliability.
+          <strong>The approach:</strong> I drove the vision for Agent-Generated UI — the idea that a single agent, depending on the surface it's operating on, could select and populate the right content format for any message on any channel, without sacrificing accuracy. The enabling layer: open protocols like <a href="https://github.com/ag-ui-protocol/ag-ui" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">AG-UI</a> alongside our proprietary design system. The hard part wasn’t the concept — it was proving accuracy at scale. An AI-populated UI component with incorrect data is not a UX problem — it’s a trust failure. The solution: <strong>a single agent that selects the right content representation for each surface, with deterministic data hydration validated through evals and hooks</strong>, so visual richness never came at the cost of reliability.
         </p>
         <div class="cs-pull">
-          “Rather than debate the architecture in meetings, I built a working prototype — uniting open agent-UI protocols with our proprietary design system in under a month. Showing is always faster than telling.”
+          “Rather than debate the architecture in meetings, I built a working prototype — uniting open agent-UI protocols with our proprietary design system within a short span of time. Showing is always faster than telling.”
         </div>
         <p>
-          <strong>The execution:</strong> Building the prototype was as much an exercise in cross-functional leadership as it was in engineering. Working closely with product, engineering, and design partners, we aligned around the architecture through a live demonstration — addressing natural questions about protocol portability, design system compatibility, and performance through a working system rather than a slide deck. The prototype used <a href="https://copilotkit.ai" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">CopilotKit</a> and AG-UI to render the same content as a rich card widget in-app, as structured HTML in email, as concise formatted content in SMS, and as audio narration for voice. Same semantic intent — adapting intelligently to every surface. Evals validated that rendered content always matched verified source data: nothing inferred, nothing fabricated.
+          <strong>The execution:</strong> Building the prototype was as much an exercise in cross-functional leadership as it was in engineering. Working closely with product, engineering, and design partners, we aligned around the architecture through a live demonstration — addressing natural questions about protocol portability, design system compatibility, and performance through a working system rather than a slide deck. The prototype used <a href="https://copilotkit.ai" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">CopilotKit</a> and AG-UI to render the same content as a rich card widget in-app, as structured HTML in email, as concise formatted content in SMS, and as audio narration for voice. The same agent — adapting its content representation intelligently to every surface. Evals validated that rendered content always matched verified source data: nothing inferred, nothing fabricated.
         </p>
         <p>
           <strong>The surfaces the agent now supports:</strong>
