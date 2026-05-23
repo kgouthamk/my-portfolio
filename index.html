@@ -6,7 +6,7 @@
   <title>Goutham Kesavan — AI Product Leader</title>
   <meta name="description" content="Senior Principal PM specializing in Agentic AI. 15+ years building transformative products that scale to millions of users across Healthcare, Media, Gaming & E-commerce.">
   <meta property="og:title" content="Goutham Kesavan — AI Product Leader">
-  <meta property="og:description" content="I turn ambitious AI bets into products that create real business value.">
+  <meta property="og:description" content="I turn ambitious AI bets into products that deliver real value.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -76,7 +76,7 @@
     .section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.9rem, 4vw, 2.75rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 16px; }
     .section-desc { color: var(--muted); font-size: 1rem; max-width: 520px; margin-bottom: 52px; }
     .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent); max-width: 1080px; margin: 0 auto; }
-    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; will-change: transform, opacity; }
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; will-change: transform, opacity; overflow-anchor: none; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     /* ── HERO ── */
@@ -138,33 +138,50 @@
     .cs-outcome-value { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
     .cs-outcome-label { font-size: 0.78rem; color: var(--dim); font-weight: 500; max-width: 120px; line-height: 1.4; }
 
-    /* ── TIMELINE ── */
-    .timeline { padding-left: 36px; position: relative; }
-    .timeline::before { content: ''; position: absolute; left: 9px; top: 10px; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--cyan) 0%, var(--violet) 50%, transparent 100%); }
-    .tl-item { position: relative; margin-bottom: 44px; opacity: 0; transform: translateX(-18px); transition: opacity 0.55s ease, transform 0.55s ease; }
-    .tl-item.visible { opacity: 1; transform: translateX(0); }
-    .tl-item::before { content: ''; position: absolute; left: -31px; top: 9px; width: 11px; height: 11px; border-radius: 50%; background: var(--cyan); border: 2.5px solid var(--bg); box-shadow: 0 0 14px rgba(34,211,238,0.45); }
-    .tl-item:nth-child(n+4)::before { background: var(--violet); box-shadow: 0 0 14px rgba(167,139,250,0.4); }
-    .tl-item:nth-child(n+6)::before { background: var(--orange); box-shadow: 0 0 14px rgba(251,146,60,0.35); }
-    .tl-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
-    .tl-role { font-family: 'Space Grotesk', sans-serif; font-size: 1.02rem; font-weight: 600; color: var(--text); }
-    .tl-company { color: var(--cyan); }
-    .tl-item:nth-child(n+4) .tl-company { color: var(--violet); }
-    .tl-item:nth-child(n+6) .tl-company { color: var(--orange); }
-    .tl-period { font-size: 0.76rem; color: var(--dim); background: var(--card); border: 1px solid var(--border); padding: 3px 10px; border-radius: 100px; white-space: nowrap; }
-    .tl-location { font-size: 0.78rem; color: var(--dim); margin-bottom: 12px; }
-    .tl-bullets { list-style: none; }
-    .tl-bullets li { font-size: 0.875rem; color: var(--muted); padding-left: 16px; position: relative; margin-bottom: 7px; line-height: 1.65; }
-    .tl-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--cyan); font-size: 0.72rem; top: 2px; }
-    .tl-bullets li strong { color: var(--text); }
+    /* ── CAREER CARDS ── */
+    .career-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .career-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; transition: all 0.35s; overflow: hidden; position: relative; }
+    .career-card:hover { background: var(--card-h); border-color: rgba(34,211,238,0.22); transform: translateY(-5px); box-shadow: var(--glow); }
+    .career-card.featured { grid-column: 1 / -1; padding: 40px; }
+    .career-card.featured::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--grad); }
+    .career-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .career-company { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--text); line-height: 1.2; }
+    .career-card:not(.featured) .career-company { font-size: 1.1rem; }
+    .career-role { font-size: 0.88rem; color: var(--cyan); font-weight: 500; margin-top: 4px; }
+    .career-card:nth-child(n+4) .career-role { color: var(--violet); }
+    .career-card:nth-child(n+4):hover { border-color: rgba(167,139,250,0.22); }
+    .career-period-loc { font-size: 0.76rem; color: var(--dim); margin-top: 2px; }
+    .career-metrics { display: flex; gap: 20px; flex-wrap: wrap; margin: 18px 0; padding: 16px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .career-metric { text-align: center; min-width: 80px; }
+    .career-metric-val { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+    .career-card.featured .career-metric-val { font-size: 1.6rem; }
+    .career-metric-label { font-size: 0.7rem; color: var(--dim); font-weight: 500; line-height: 1.3; max-width: 100px; }
+    .career-highlights { list-style: none; margin-bottom: 16px; }
+    .career-highlights li { font-size: 0.875rem; color: var(--muted); padding-left: 16px; position: relative; margin-bottom: 6px; line-height: 1.6; }
+    .career-highlights li::before { content: '→'; position: absolute; left: 0; color: var(--cyan); font-size: 0.72rem; top: 2px; }
+    .career-highlights li strong { color: var(--text); }
+    .career-press { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+    .press-link { display: inline-flex; align-items: center; gap: 5px; font-size: 0.72rem; font-weight: 500; color: var(--cyan); text-decoration: none; padding: 4px 11px; border-radius: 100px; background: rgba(34,211,238,0.07); border: 1px solid rgba(34,211,238,0.18); transition: all 0.2s; white-space: nowrap; }
+    .press-link:hover { background: rgba(34,211,238,0.14); border-color: rgba(34,211,238,0.32); transform: translateY(-1px); }
+    .press-link.violet { color: var(--violet); background: rgba(167,139,250,0.07); border-color: rgba(167,139,250,0.18); }
+    .press-link.violet:hover { background: rgba(167,139,250,0.14); border-color: rgba(167,139,250,0.32); }
 
     /* ── EDUCATION ── */
     .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .edu-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: all 0.3s; }
-    .edu-card:hover { background: var(--card-h); transform: translateY(-4px); }
-    .edu-year { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--violet); margin-bottom: 8px; }
-    .edu-degree { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-    .edu-school { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+    .edu-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; transition: all 0.3s; position: relative; overflow: hidden; }
+    .edu-card:hover { background: var(--card-h); transform: translateY(-4px); box-shadow: var(--glow); }
+    .edu-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--grad2); }
+    .edu-year { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--violet); margin-bottom: 10px; }
+    .edu-degree { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .edu-school { font-size: 0.88rem; color: var(--muted); line-height: 1.5; margin-bottom: 14px; }
+    .edu-context { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .edu-stat-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 10px; }
+    .edu-stat { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--muted); }
+    .edu-stat-icon { font-size: 0.85rem; }
+    .edu-stat strong { color: var(--text); font-weight: 600; }
+    .edu-stat a { color: var(--cyan); text-decoration: none; font-weight: 500; }
+    .edu-stat a:hover { text-decoration: underline; }
+    .edu-note { font-size: 0.78rem; color: var(--dim); line-height: 1.5; font-style: italic; margin-top: 8px; }
 
     /* ── PROJECTS ── */
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(272px, 1fr)); gap: 20px; }
@@ -221,6 +238,9 @@
       .section-wrap { padding: 72px 24px; }
       .about-grid { grid-template-columns: 1fr; gap: 36px; }
       .edu-grid { grid-template-columns: 1fr; }
+      .career-grid { grid-template-columns: 1fr; }
+      .career-card.featured { padding: 28px; }
+      .career-metrics { gap: 12px; }
       .timeline { padding-left: 26px; }
       .cs-card { padding: 32px 24px; }
       .cs-outcomes { gap: 20px; }
@@ -255,7 +275,7 @@
     <h1>
       I turn ambitious<br>
       <span class="gradient-text">AI bets</span> into<br>
-      products that <span class="gradient-text2">create business value</span>.
+      products that <span class="gradient-text2">deliver value</span>.
     </h1>
     <p class="hero-sub">
       Most AI products are wrappers. <em>The real differentiation is in the orchestration underneath</em> —
@@ -297,7 +317,7 @@
   <div class="section-wrap" id="about">
     <div class="fade-up">
       <span class="section-tag">About Me</span>
-      <h2 class="section-title">I'm not a typical PM.<br><span class="gradient-text">I work deep at the technical frontier.</span></h2>
+      <h2 class="section-title">I'm not a typical PM.<br><span class="gradient-text">I think in systems — not just specs.</span></h2>
     </div>
     <div class="about-grid">
       <div class="about-text fade-up">
@@ -402,12 +422,12 @@
           <span class="cs-channel">Push Notifications</span>
         </div>
         <p>
-          <strong>The outcome:</strong> The team’s reaction when we demonstrated the prototype was that it felt magical — not because of visual polish, but because it did what the theory promised: the same intelligence adapting seamlessly to every surface and context. What started as a month-long prototype became a foundational platform architecture, transforming the agent from a conversational interface into a true <strong>omnichannel intelligent partner</strong> — one that meets users wherever they already are and communicates in the language of that surface.
+          <strong>The outcome:</strong> The team’s reaction when we demonstrated the prototype was that it felt magical — not because of visual polish, but because it did what the theory promised: the same intelligence adapting seamlessly to every surface and context. What started as a rapid prototype became a foundational platform architecture, transforming the agent from a conversational interface into a true <strong>omnichannel intelligent partner</strong> — one that meets users wherever they already are and communicates in the language of that surface.
         </p>
       </div>
       <div class="cs-outcomes">
         <div>
-          <div class="cs-outcome-value gradient-text">1 month</div>
+          <div class="cs-outcome-value gradient-text">Rapid</div>
           <div class="cs-outcome-label">Prototype to stakeholder demo</div>
         </div>
         <div>
@@ -435,116 +455,171 @@
       <h2 class="section-title">15 Years of<br><span class="gradient-text">Moonshots Made Real</span></h2>
       <p class="section-desc">From the early days of India's internet economy to the frontier of agentic AI.</p>
     </div>
-    <div class="timeline">
+    <div class="career-grid">
 
-      <div class="tl-item">
-        <div class="tl-header">
+      <!-- LEAGUE — Featured -->
+      <div class="career-card featured fade-up">
+        <div class="career-card-top">
           <div>
-            <div class="tl-role">Senior Principal PM — <span class="tl-company">Agentic AI, League</span></div>
-            <div class="tl-location">San Francisco, California</div>
+            <div class="career-company">League</div>
+            <div class="career-role">Senior Principal PM → Principal PM → Senior PM</div>
+            <div class="career-period-loc">Apr 2021 – Present · Toronto → San Francisco</div>
           </div>
-          <span class="tl-period">June 2025 – Present</span>
+          <span class="cs-chip">Healthcare AI</span>
         </div>
-        <ul class="tl-bullets">
-          <li>Led the vision, strategy, and roadmap for League's core <strong>AI platform</strong> (HITRUST r2, SOC 2 Type II, HIPAA/GDPR compliant) — the company's largest and most strategic initiative</li>
-          <li>Designed the scalable agentic architecture: a central orchestrator, domain-specific sub-agents, and a concierge agent that dynamically coordinates multi-agent workflows</li>
-          <li>Pioneered <strong>Agent-Generated UI</strong> — a surface-adaptive rich UI system powered by AG-UI and A2UI protocols, enabling the health coach agent to reach users across 7+ channels with accurate, visually rich experiences</li>
-          <li>Delivered an <strong>MCP-based tooling layer</strong> enabling agents to securely access tools and render rich UI components within conversations using structured output patterns</li>
-          <li>Created an AI safety &amp; compliance framework with guardrails and guarded conversation patterns for healthcare-grade clinical safety</li>
-          <li>Led cross-functional execution across <strong>~50 engineers, designers, researchers, data scientists, and clinical experts</strong>, aligning multiple teams against a single AI platform vision</li>
-          <li>Secured and launched AI Health Coach Agent pilot for a Tier-1 enterprise account, expanding footprint to <strong>millions of end-users</strong></li>
+        <div class="career-metrics">
+          <div class="career-metric">
+            <div class="career-metric-val gradient-text">~50</div>
+            <div class="career-metric-label">People led cross-functionally</div>
+          </div>
+          <div class="career-metric">
+            <div class="career-metric-val gradient-text">$100M+</div>
+            <div class="career-metric-label">Enterprise deals landed</div>
+          </div>
+          <div class="career-metric">
+            <div class="career-metric-val gradient-text2">100M+</div>
+            <div class="career-metric-label">Health recommendations annually</div>
+          </div>
+          <div class="career-metric">
+            <div class="career-metric-val gradient-text2">7+</div>
+            <div class="career-metric-label">Agent surfaces shipped</div>
+          </div>
+        </div>
+        <ul class="career-highlights">
+          <li>Led vision, strategy, and roadmap for League's core <strong>AI platform</strong> (HITRUST r2, SOC 2 Type II, HIPAA/GDPR) — the company's largest strategic initiative</li>
+          <li>Pioneered <strong>Agent-Generated UI</strong> — a surface-adaptive system using AG-UI and A2UI protocols, enabling the health coach agent to reach users across 7+ channels</li>
+          <li>Designed the scalable agentic architecture: central orchestrator, domain-specific sub-agents, and a concierge agent coordinating multi-agent workflows</li>
+          <li>Delivered an <strong>MCP-based tooling layer</strong> and AI safety framework with guardrails for healthcare-grade clinical safety</li>
+          <li>Upgraded benefits wallet to a plug-n-play offering that landed enterprise deals in the <strong>$10–100M range</strong> — 100× previous deal sizes</li>
         </ul>
+        <div class="career-press">
+          <a href="https://league.com/newsroom/telus-ai-healthcare-delivery-partner/" target="_blank" rel="noopener" class="press-link">📰 TELUS × League AI Partnership</a>
+          <a href="https://www.theglobeandmail.com/business/article-league-mike-serbinis-toronto-health-care-startup-funding/" target="_blank" rel="noopener" class="press-link">📰 Globe &amp; Mail — League Growth</a>
+          <a href="https://github.com/ag-ui-protocol/ag-ui" target="_blank" rel="noopener" class="press-link">🔗 AG-UI Protocol (Open Source)</a>
+        </div>
       </div>
 
-      <div class="tl-item">
-        <div class="tl-header">
+      <!-- HOTSTAR — Featured -->
+      <div class="career-card featured fade-up">
+        <div class="career-card-top">
           <div>
-            <div class="tl-role">Principal PM — <span class="tl-company">Health Journey, League</span></div>
-            <div class="tl-location">San Francisco, California</div>
+            <div class="career-company">Hotstar <span style="font-size:0.75rem;color:var(--dim);font-weight:400">(now JioHotstar)</span></div>
+            <div class="career-role">Product Manager II</div>
+            <div class="career-period-loc">May 2015 – Nov 2017 · Mumbai, India</div>
           </div>
-          <span class="tl-period">Mar 2024 – June 2025</span>
+          <span class="cs-chip">Media / OTT</span>
         </div>
-        <ul class="tl-bullets">
-          <li>Architected AI-powered personalised health journeys using <strong>behavioural science</strong> to measurably improve member health outcomes</li>
-          <li>Shipped a suite of core platform products — workflow automation engine, business rule engine, and data management layer — enabling <strong>100M+ recommendations annually</strong></li>
+        <div class="career-metrics">
+          <div class="career-metric">
+            <div class="career-metric-val gradient-text">200M+</div>
+            <div class="career-metric-label">Active users reached</div>
+          </div>
+          <div class="career-metric">
+            <div class="career-metric-val gradient-text">70%</div>
+            <div class="career-metric-label">India OTT market share</div>
+          </div>
+          <div class="career-metric">
+            <div class="career-metric-val gradient-text2">25.3M</div>
+            <div class="career-metric-label">Concurrent viewers (world record)</div>
+          </div>
+          <div class="career-metric">
+            <div class="career-metric-val gradient-text2">3rd PM</div>
+            <div class="career-metric-label">On the founding team</div>
+          </div>
+        </div>
+        <ul class="career-highlights">
+          <li>Scaled Hotstar from early launch to <strong>200M+ active users</strong> — India's largest OTT platform — owning the website platform end-to-end</li>
+          <li>Designed and launched Hotstar's <strong>freemium model</strong> and ad inventory system from first principles, drawing on direct stints in ad-sales and distribution</li>
+          <li>Pioneered the <strong>Movies / TV Shows / Sports navigation tabs</strong> — now the industry standard for streaming platforms</li>
+          <li>Strategically launched <strong>Game of Thrones</strong> with a staggered free trial playbook that unlocked the subscription business model at scale</li>
+          <li>Drove cricket-to-TV-show retention strategy, dramatically increasing <strong>long-term retention and LTV</strong></li>
         </ul>
+        <div class="career-press">
+          <a href="https://www.gadgetbridge.com/news/hotstar-breaks-previous-records-with-a-viewership-of-25-3-million-during-india-vs-new-zealand-world-cup-match/" target="_blank" rel="noopener" class="press-link">📰 25.3M Concurrent Viewers Record</a>
+          <a href="https://techcrunch.com/2023/11/19/india-and-australia-world-cup-final-shatters-streaming-records-on-hotstar/" target="_blank" rel="noopener" class="press-link">📰 TechCrunch — Streaming Records</a>
+          <a href="https://variety.com/2025/tv/news/how-indian-streamer-jiohotstar-100-million-subscribers-1236358603/" target="_blank" rel="noopener" class="press-link">📰 Variety — JioHotstar's Rise</a>
+        </div>
       </div>
 
-      <div class="tl-item">
-        <div class="tl-header">
+      <!-- MOONFROG -->
+      <div class="career-card fade-up">
+        <div class="career-card-top">
           <div>
-            <div class="tl-role">Senior PM — <span class="tl-company">Benefits &amp; Health Journey, League</span></div>
-            <div class="tl-location">Toronto, Canada</div>
+            <div class="career-company">Moonfrog Labs</div>
+            <div class="career-role">Product Manager</div>
+            <div class="career-period-loc">Dec 2017 – Mar 2019 · Bangalore, India</div>
           </div>
-          <span class="tl-period">Apr 2021 – Mar 2024</span>
+          <span class="cs-chip v">Gaming</span>
         </div>
-        <ul class="tl-bullets">
-          <li>Upgraded the benefits wallet to a plug-n-play offering that landed enterprise deals in the <strong>$10–100M range</strong> — 100× our previous deal sizes with employer segments</li>
-          <li>Optimised the wallet experience to become the <strong>most engaged feature</strong> on the League platform</li>
-        </ul>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-header">
-          <div>
-            <div class="tl-role">Product Lead — <span class="tl-company">Inkbox</span></div>
-            <div class="tl-location">Toronto, Canada</div>
+        <div class="career-metrics">
+          <div class="career-metric">
+            <div class="career-metric-val gradient-text2">2×</div>
+            <div class="career-metric-label">Revenue growth</div>
           </div>
-          <span class="tl-period">June 2019 – Mar 2021</span>
-        </div>
-        <ul class="tl-bullets">
-          <li>Improved browse &amp; search UX resulting in a <strong>2.5× conversion rate increase</strong> within 1 year</li>
-          <li>Launched Product Bundles and tiered discounts, driving a <strong>65% Average Order Value increase</strong></li>
-          <li>Led global launch of new tattoo product with new manufacturing &amp; fulfilment software and Artist Marketplace</li>
-          <li>Built a custom tattoo platform driving <strong>10% incremental revenue</strong></li>
-        </ul>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-header">
-          <div>
-            <div class="tl-role">Product Manager — <span class="tl-company">Moonfrog Labs</span></div>
-            <div class="tl-location">Bangalore, India</div>
+          <div class="career-metric">
+            <div class="career-metric-val gradient-text2">65%</div>
+            <div class="career-metric-label">DAU increase in 6 months</div>
           </div>
-          <span class="tl-period">Dec 2017 – Mar 2019</span>
+          <div class="career-metric">
+            <div class="career-metric-val gradient-text">Top 3</div>
+            <div class="career-metric-label">Grossing game in India</div>
+          </div>
         </div>
-        <ul class="tl-bullets">
-          <li>Increased Teen Patti Gold revenue <strong>2×</strong>, reaching top 3 grossing games on Play Store &amp; App Store in India</li>
-          <li>Grew <strong>Daily Active Users by 65%</strong> within 6 months through virality mechanics</li>
+        <ul class="career-highlights">
+          <li>Grew Teen Patti Gold to <strong>top 3 grossing</strong> on Play Store &amp; App Store in India with 140M+ downloads</li>
           <li>Defined and delivered the most profitable game mode in TPG history — <strong>Andar Bahar</strong></li>
         </ul>
+        <div class="career-press">
+          <a href="https://animationxpress.com/latest-news/after-the-success-of-teen-patti-gold-moonfrog-labs-is-experimenting-with-other-genres/" target="_blank" rel="noopener" class="press-link violet">📰 AnimationXpress — TPG Success</a>
+          <a href="https://www.skandgroup.com/post/moonfrog-labs-india-s-mobile-gaming-pioneer" target="_blank" rel="noopener" class="press-link violet">📰 India's Gaming Pioneer</a>
+        </div>
       </div>
 
-      <div class="tl-item">
-        <div class="tl-header">
+      <!-- INKBOX -->
+      <div class="career-card fade-up">
+        <div class="career-card-top">
           <div>
-            <div class="tl-role">Product Manager II — <span class="tl-company">Hotstar</span></div>
-            <div class="tl-location">Mumbai, India</div>
+            <div class="career-company">Inkbox</div>
+            <div class="career-role">Product Lead</div>
+            <div class="career-period-loc">June 2019 – Mar 2021 · Toronto, Canada</div>
           </div>
-          <span class="tl-period">May 2015 – Nov 2017</span>
+          <span class="cs-chip v">E-commerce</span>
         </div>
-        <ul class="tl-bullets">
-          <li>Scaled Hotstar from early launch to <strong>200M+ active users</strong> — India's largest OTT platform with 70% market share — as the third PM on the team, owning the website platform end-to-end</li>
-          <li>Conducted deep consumer research across India, travelling to gather on-the-ground insights that shaped the product's core information architecture — including the critical insight that <strong>families sharing one TV had diverging content needs</strong> that the digital platform could finally solve</li>
-          <li>Designed and launched Hotstar's <strong>freemium model</strong> and ad inventory system, drawing on direct stints in ad-sales and distribution to structure the business model from first principles</li>
-          <li>Pioneered the <strong>Movies / TV Shows / Sports navigation tabs</strong> — a clear information hierarchy based on how much time users had — before this became the industry standard for streaming platforms</li>
-          <li>Drove the cricket-to-TV-show retention strategy: users who came for live cricket were cross-promoted to ongoing shows, dramatically increasing <strong>long-term retention and LTV</strong></li>
-          <li>Held the record for the <strong>largest number of concurrent live stream viewers</strong> for multiple years running (the 2019 ICC World Cup final on Hotstar set a then-world record of ~18.6M concurrent viewers)</li>
-          <li>Strategically launched <strong>Game of Thrones</strong> with a 1-month free trial and weekly episode drops — staggered release that converted trial users to paid subscribers after they were hooked; a playbook that unlocked the subscription business model at scale</li>
-          <li>Led the <strong>international launch</strong> of Hotstar, managing geo-restrictions for media rights across geographies</li>
-          <li>Launched Hotstar on <strong>Smart TV</strong> apps, delivering a best-in-class 10-foot experience guided by Apple, Google, and Roku design guidelines</li>
+        <div class="career-metrics">
+          <div class="career-metric">
+            <div class="career-metric-val gradient-text2">2.5×</div>
+            <div class="career-metric-label">Conversion rate increase</div>
+          </div>
+          <div class="career-metric">
+            <div class="career-metric-val gradient-text2">65%</div>
+            <div class="career-metric-label">AOV increase</div>
+          </div>
+          <div class="career-metric">
+            <div class="career-metric-val gradient-text">$65M</div>
+            <div class="career-metric-label">Acquired by BIC</div>
+          </div>
+        </div>
+        <ul class="career-highlights">
+          <li>Improved browse &amp; search UX, driving a <strong>2.5× conversion rate increase</strong> within 1 year</li>
+          <li>Launched Product Bundles and tiered discounts for <strong>65% AOV increase</strong>; built custom tattoo platform adding <strong>10% incremental revenue</strong></li>
         </ul>
+        <div class="career-press">
+          <a href="https://www.shopify.com/blog/inkbox-social-media" target="_blank" rel="noopener" class="press-link violet">📰 Shopify — 8-Figure Business</a>
+          <a href="https://corporate.bic.com/en-us/news/bic-acquires-inkbox" target="_blank" rel="noopener" class="press-link violet">📰 BIC Acquires Inkbox ($65M)</a>
+        </div>
       </div>
 
-      <div class="tl-item">
-        <div class="tl-header">
+      <!-- COGNIZANT -->
+      <div class="career-card fade-up" style="grid-column: 1 / -1;">
+        <div class="career-card-top">
           <div>
-            <div class="tl-role">Software Development Engineer — <span class="tl-company">Cognizant</span></div>
-            <div class="tl-location">Chennai, India</div>
+            <div class="career-company">Cognizant</div>
+            <div class="career-role">Software Development Engineer</div>
+            <div class="career-period-loc">July 2010 – May 2013 · Chennai, India</div>
           </div>
-          <span class="tl-period">July 2010 – May 2013</span>
+          <span class="cs-chip" style="background:rgba(251,146,60,0.09);border-color:rgba(251,146,60,0.22);color:var(--orange)">Engineering</span>
         </div>
-        <ul class="tl-bullets">
+        <ul class="career-highlights" style="margin-top:12px;">
           <li>Shipped remote health monitoring solution, <strong>reducing cost per patient by 50%</strong></li>
           <li>Developed gesture &amp; speech navigation framework for retail applications</li>
           <li>Built an online <strong>Augmented Reality</strong> Makeover app</li>
@@ -561,20 +636,38 @@
     <div class="fade-up">
       <span class="section-tag">Education</span>
       <h2 class="section-title">Technical &amp; Business <span class="gradient-text">Foundation</span></h2>
+      <p class="section-desc">India's most competitive institutions — where fewer than 1 in 100 applicants earn admission.</p>
     </div>
     <div class="edu-grid fade-up">
       <div class="edu-card">
-        <div class="edu-year">2015</div>
+        <div class="edu-year">Class of 2015</div>
         <div class="edu-degree">MBA — Triple Major</div>
-        <div class="edu-school">Indian Institute of Management, Lucknow<br>
-          <span style="color:var(--dim);font-size:0.78rem">Marketing · Information Systems · Strategy</span>
+        <div class="edu-school">Indian Institute of Management, Lucknow</div>
+        <div style="color:var(--dim);font-size:0.78rem;margin-bottom:4px">Marketing · Information Systems · Strategy</div>
+        <div class="edu-context">
+          <div class="edu-stat-row">
+            <div class="edu-stat"><span class="edu-stat-icon">🏆</span> <strong>Ranked #5</strong> in India (NIRF 2025)</div>
+            <div class="edu-stat"><span class="edu-stat-icon">🌍</span> <strong>FT Top 57</strong> globally</div>
+          </div>
+          <div class="edu-stat-row">
+            <div class="edu-stat"><span class="edu-stat-icon">📊</span> <strong>&lt;1% acceptance rate</strong> from 240,000+ applicants (cf. HBS ~12%, Stanford GSB ~6%)</div>
+          </div>
+          <div class="edu-note">One of India's original premier business schools, part of the IIM system — the country's equivalent of the Ivy League for management education. <a href="https://www.iiml.ac.in/about-iim-lucknow/ranking-&-accreditations/financial-times-rankings" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;font-style:normal">FT Rankings →</a></div>
         </div>
       </div>
       <div class="edu-card">
-        <div class="edu-year">2010</div>
+        <div class="edu-year">Class of 2010</div>
         <div class="edu-degree">B.E. — Computer Science</div>
-        <div class="edu-school">Anna University — College of Engineering Guindy<br>
-          <span style="color:var(--dim);font-size:0.78rem">Chennai, India</span>
+        <div class="edu-school">College of Engineering, Guindy — Anna University</div>
+        <div style="color:var(--dim);font-size:0.78rem;margin-bottom:4px">Chennai, India</div>
+        <div class="edu-context">
+          <div class="edu-stat-row">
+            <div class="edu-stat"><span class="edu-stat-icon">📜</span> <strong>Founded 1794</strong> — Asia's oldest technical institution</div>
+          </div>
+          <div class="edu-stat-row">
+            <div class="edu-stat"><span class="edu-stat-icon">🏆</span> <strong>Ranked #14</strong> out of 3,500+ engineering colleges in India (NIRF)</div>
+          </div>
+          <div class="edu-note">Established before MIT (1861) and IIT Bombay (1958), CEG is one of India's most prestigious engineering colleges — the oldest technical institution outside Europe. <a href="https://en.wikipedia.org/wiki/College_of_Engineering,_Guindy" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;font-style:normal">History →</a></div>
         </div>
       </div>
     </div>
@@ -733,7 +826,7 @@
         }
       });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-up, .tl-item').forEach(el => animObserver.observe(el));
+    document.querySelectorAll('.fade-up').forEach(el => animObserver.observe(el));
 
     const counterObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
