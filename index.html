@@ -30,7 +30,7 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       font-family: 'Inter', system-ui, sans-serif;
@@ -80,7 +80,7 @@
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     /* ── HERO ── */
-    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 130px 40px 90px; }
+    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 130px 40px 140px; }
     .hero-avatar { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; border: 2.5px solid transparent; background: linear-gradient(var(--bg), var(--bg)) padding-box, var(--grad) border-box; box-shadow: 0 0 0 6px rgba(34,211,238,0.08), 0 20px 60px rgba(0,0,0,0.4); margin-bottom: 36px; }
     .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.8rem, 6.5vw, 5.2rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; margin-bottom: 24px; }
     .hero-sub { font-size: clamp(1rem, 2.2vw, 1.2rem); color: var(--muted); max-width: 620px; margin: 0 auto 44px; line-height: 1.75; }
@@ -90,7 +90,7 @@
     .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
     .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: var(--card); color: var(--text); font-weight: 500; font-size: 0.92rem; padding: 14px 28px; border-radius: 10px; text-decoration: none; border: 1px solid var(--border); transition: all 0.2s; }
     .btn-secondary:hover { background: var(--card-h); border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
-    .hero-scroll { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); color: var(--dim); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 8px; animation: bounce 2s ease-in-out infinite; }
+    .hero-scroll { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); color: var(--dim); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 8px; animation: bounce 2s ease-in-out infinite; }
     @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
     .hero-scroll::after { content: ''; width: 1px; height: 36px; background: linear-gradient(to bottom, var(--dim), transparent); }
 
@@ -226,13 +226,19 @@
     /* ── FOOTER ── */
     footer { border-top: 1px solid var(--border); padding: 32px 48px; text-align: center; color: var(--dim); font-size: 0.82rem; }
 
+    /* ── PROMO & IMAGES ── */
+    .promo-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.7rem; font-weight: 600; color: var(--green); background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25); border-radius: 100px; padding: 3px 10px; margin-left: 8px; vertical-align: middle; letter-spacing: 0.02em; }
+    .career-role-chain { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; font-size: 0.88rem; color: var(--cyan); font-weight: 500; margin-top: 4px; }
+    .career-role-chain .role-arrow { color: var(--green); font-weight: 700; font-size: 0.95rem; }
+    .career-card-img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 16px 24px; }
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .nav-mobile-open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: rgba(6,9,20,0.97); backdrop-filter: blur(24px); padding: 28px; border-bottom: 1px solid var(--border); gap: 20px; z-index: 200; }
-      .hero { padding: 110px 24px 80px; }
+      .hero { padding: 110px 24px 120px; }
       .stats-section { padding: 0 24px 64px; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
       .section-wrap { padding: 72px 24px; }
@@ -240,13 +246,51 @@
       .edu-grid { grid-template-columns: 1fr; }
       .career-grid { grid-template-columns: 1fr; }
       .career-card.featured { padding: 28px; }
+      .career-card-img { height: 160px; }
       .career-metrics { gap: 12px; }
       .timeline { padding-left: 26px; }
       .cs-card { padding: 32px 24px; }
       .cs-outcomes { gap: 20px; }
       .learnings-card { padding: 36px 28px; flex-direction: column; }
       .contact-card { padding: 44px 24px; }
+      .press-link { white-space: normal; }
       footer { padding: 28px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 100px 18px 110px; }
+      .hero h1 { font-size: 2.2rem; }
+      .hero-sub { font-size: 0.92rem; }
+      .hero-ctas { flex-direction: column; align-items: center; width: 100%; }
+      .hero-ctas .btn-primary, .hero-ctas .btn-secondary { width: 100%; justify-content: center; }
+      .stats-section { padding: 0 18px 48px; }
+      .stats-grid { gap: 10px; }
+      .stat-card { padding: 20px 12px; }
+      .stat-number { font-size: 2rem; }
+      .stat-label { font-size: 0.75rem; }
+      .section-wrap { padding: 56px 18px; }
+      .section-title { font-size: 1.6rem; }
+      .career-card { padding: 20px; }
+      .career-card.featured { padding: 20px; }
+      .career-card-img { height: 140px; border-radius: 10px; }
+      .career-metric-val { font-size: 1.15rem; }
+      .career-card.featured .career-metric-val { font-size: 1.3rem; }
+      .career-metric-label { font-size: 0.65rem; }
+      .career-highlights li { font-size: 0.82rem; }
+      .career-role-chain { font-size: 0.8rem; }
+      .promo-badge { font-size: 0.62rem; padding: 2px 8px; margin-left: 4px; }
+      .cs-card { padding: 24px 16px; }
+      .cs-title { font-size: 1.2rem; }
+      .cs-outcomes { flex-direction: column; gap: 14px; }
+      .edu-card { padding: 24px 18px; }
+      .edu-degree { font-size: 0.95rem; }
+      .edu-stat { font-size: 0.72rem; }
+      .learnings-card { padding: 28px 18px; }
+      .learnings-card h3 { font-size: 1.3rem; }
+      .contact-card { padding: 36px 16px; }
+      footer { padding: 24px 18px; }
+      .about-links { flex-direction: column; }
+      .pov-card { padding: 20px; }
     }
   </style>
 </head>
@@ -278,9 +322,9 @@
       products that <span class="gradient-text2">deliver value</span>.
     </h1>
     <p class="hero-sub">
-      Most AI products are wrappers. <em>The real differentiation is in the orchestration underneath</em> —
-      how agents coordinate, what tools they can access, and how they reach users across every surface.
-      15 years. Hundreds of millions of users. Healthcare, Media, Gaming, E-commerce.
+      Let's be honest — most AI products are just wrappers. <em>The real magic is in the orchestration underneath</em> —
+      how agents talk to each other, what tools they wield, and how they meet users wherever they are.
+      15 years. Hundreds of millions of users. Healthcare, Media, Gaming, E-commerce 🌍
     </p>
     <div class="hero-ctas">
       <a href="#work" class="btn-primary">See Featured Work →</a>
@@ -294,19 +338,19 @@
     <div class="stats-grid">
       <div class="stat-card fade-up">
         <div class="stat-number gradient-text" data-target="15" data-suffix="+">0</div>
-        <div class="stat-label">Years of PM Experience</div>
+        <div class="stat-label">⏳ Years of PM Experience</div>
       </div>
       <div class="stat-card fade-up">
         <div class="stat-number gradient-text" data-target="200" data-suffix="M+">0</div>
-        <div class="stat-label">Users Reached</div>
+        <div class="stat-label">👥 Users Reached</div>
       </div>
       <div class="stat-card fade-up">
         <div class="stat-number gradient-text2" data-target="100" data-prefix="$" data-suffix="M+">0</div>
-        <div class="stat-label">Enterprise Deals Landed</div>
+        <div class="stat-label">💰 Enterprise Deals Landed</div>
       </div>
       <div class="stat-card fade-up">
         <div class="stat-number gradient-text2" data-target="50" data-suffix="+">0</div>
-        <div class="stat-label">Cross-Functional People Led</div>
+        <div class="stat-label">🤝 Cross-Functional People Led</div>
       </div>
     </div>
   </div>
@@ -316,23 +360,23 @@
   <!-- ── ABOUT ── -->
   <div class="section-wrap" id="about">
     <div class="fade-up">
-      <span class="section-tag">About Me</span>
-      <h2 class="section-title">I'm not a typical PM.<br><span class="gradient-text">I think in systems — not just specs.</span></h2>
+      <span class="section-tag">🧑‍💻 About Me</span>
+      <h2 class="section-title">Not your typical PM.<br><span class="gradient-text">I think in systems — not specs.</span></h2>
     </div>
     <div class="about-grid">
       <div class="about-text fade-up">
         <p>
-          I started as a software engineer. Then I got an <strong>MBA from IIM Lucknow</strong> — triple major in Marketing, Information Systems, and Strategy — because I wanted to understand both sides of the table. That combination has defined everything since.
+          I started writing code. Then I went and got an <strong>MBA from IIM Lucknow</strong> — triple major in Marketing, Information Systems, and Strategy — because I wanted to understand the business side just as deeply. That combo has shaped everything I've done since 🎯
         </p>
         <p>
-          My career spans continents and industries: scaling Hotstar to 200M users across India, 2x-ing revenue at a mobile gaming company, leading e-commerce at a high-growth DTC brand, and now building the agentic AI platform at League that's <strong>changing how millions of people experience healthcare</strong>.
+          I've bounced across continents and industries: helped scale Hotstar to 200M users across India 🇮🇳, doubled revenue at a mobile gaming company, led e-commerce at a fast-growing DTC brand, and now I'm building the agentic AI platform at League that's <strong>changing how millions of people experience healthcare</strong>.
         </p>
         <p>
-          What makes me different: I work at the technical frontier, not just above it. I've designed multi-agent architectures. I've written ML evals. I've built MCP tooling. I pioneered Agent-Generated UI at League — built a working prototype in a month, proved it to skeptical stakeholders, and turned it into a foundational platform architecture. I bring the conviction to push for things that haven't been done before, and the engineering depth to make them real.
+          Here's what sets me apart — I don't just manage the roadmap from 10,000 feet. I've designed multi-agent architectures. Written ML evals. Built MCP tooling. I pioneered Agent-Generated UI at League — built a working prototype in a month, showed it to skeptical stakeholders, and watched it become a foundational platform architecture. I push for things that haven't been done before, and I've got the engineering chops to make them real 💪
         </p>
         <div class="pov-card">
-          <div class="pov-label">My Conviction</div>
-          <blockquote>"Most AI products are wrappers. The teams that win aren't the ones who picked the best model — models commoditize fast. They're the ones who built the best <em>orchestration layer</em> underneath: the multi-agent coordination, the tools, the protocols, the guardrails. That's where durable differentiation lives."</blockquote>
+          <div class="pov-label">💡 My Conviction</div>
+          <blockquote>"Look — most AI products are wrappers. And the teams that win? They're not the ones who picked the best model (models commoditize fast). They're the ones who built the best <em>orchestration layer</em> underneath: the multi-agent coordination, the tools, the protocols, the guardrails. That's where the real moat is."</blockquote>
         </div>
         <div class="about-links">
           <a href="https://www.linkedin.com/in/kgouthamk/" target="_blank" rel="noopener" class="btn-secondary" style="font-size:.85rem;padding:10px 20px">LinkedIn →</a>
@@ -341,7 +385,7 @@
       </div>
       <div class="fade-up">
         <div class="skills-block">
-          <div class="skills-block-title">Core Expertise</div>
+          <div class="skills-block-title">🧠 Core Expertise</div>
           <div class="skills-wrap">
             <span class="pill pill-cyan">Agentic AI Architecture</span>
             <span class="pill pill-cyan">Multi-Agent Systems</span>
@@ -352,7 +396,7 @@
           </div>
         </div>
         <div class="skills-block">
-          <div class="skills-block-title">Domain &amp; Compliance</div>
+          <div class="skills-block-title">🛡️ Domain &amp; Compliance</div>
           <div class="skills-wrap">
             <span class="pill pill-violet">AI Safety &amp; Guardrails</span>
             <span class="pill pill-violet">HIPAA / HITRUST</span>
@@ -362,7 +406,7 @@
           </div>
         </div>
         <div class="skills-block">
-          <div class="skills-block-title">Industries</div>
+          <div class="skills-block-title">🌍 Industries</div>
           <div class="skills-wrap">
             <span class="pill pill-orange">Healthcare</span>
             <span class="pill pill-orange">Media / OTT</span>
@@ -380,9 +424,9 @@
   <!-- ── FEATURED CASE STUDY: AG-UI ── -->
   <div class="section-wrap" id="work">
     <div class="fade-up">
-      <span class="section-tag">Featured Work</span>
+      <span class="section-tag">🚀 Featured Work</span>
       <h2 class="section-title">From Chat Box to<br><span class="gradient-text">Omnichannel Intelligence</span></h2>
-      <p class="section-desc">How I pioneered Agent-Generated UI at League — turning a healthcare chatbot into a surface-adaptive, omnichannel intelligent experience.</p>
+      <p class="section-desc">The story of how I took League's healthcare chatbot and turned it into something that actually works across every channel — not just another chat widget.</p>
     </div>
     <div class="cs-card fade-up">
       <div class="cs-header">
@@ -398,16 +442,16 @@
       </div>
       <div class="cs-narrative">
         <p>
-          <strong>The problem:</strong> Healthcare AI was trapped in a text box. At League, we were building an AI Health Coach — but a plain chat interface creates friction at exactly the moment users need clarity. Rich, visual experiences don't just look better; in healthcare, they lead to meaningfully better outcomes. The challenge: we needed the agent to render care plans as structured cards, medication schedules as visual timelines, and health metrics as clear summaries — not walls of text. But building bespoke UI for every surface and every content type wasn't scalable.
-        </p>
+          <strong>The problem 🔍:</strong> Healthcare AI was stuck in a text box. We were building an AI Health Coach at League — but here's the thing: a plain chat interface creates friction at the exact moment users need clarity. Care plans as walls of text? Medication schedules in paragraph form? That's not just a bad UX — in healthcare, it leads to worse outcomes. We needed the agent to render care plans as structured cards, medication schedules as visual timelines, and health metrics as clear summaries. But building bespoke UI for every surface and content type? That doesn't scale.
+        </p></invoke>
         <p>
-          <strong>The approach:</strong> I drove the vision for Agent-Generated UI — the idea that a single agent, depending on the surface it's operating on, could select and populate the right content format for any message on any channel, without sacrificing accuracy. The enabling layer: open protocols like <a href="https://github.com/ag-ui-protocol/ag-ui" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">AG-UI</a> alongside our proprietary design system. The hard part wasn’t the concept — it was proving accuracy at scale. An AI-populated UI component with incorrect data is not a UX problem — it’s a trust failure. The solution: <strong>a single agent that selects the right content representation for each surface, with deterministic data hydration validated through evals and hooks</strong>, so visual richness never came at the cost of reliability.
+          <strong>The approach 🧩:</strong> I pushed hard for Agent-Generated UI — one agent that picks the right content format depending on where the user is, without sacrificing accuracy. We layered open protocols like <a href="https://github.com/ag-ui-protocol/ag-ui" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">AG-UI</a> on top of our proprietary design system. The hard part wasn’t the concept — it was proving accuracy at scale. An AI-populated UI component with wrong data isn’t a UX problem — it’s a trust failure. The solution: <strong>a single agent that selects the right content representation for each surface, with deterministic data hydration validated through evals and hooks</strong>. Visual richness without the hallucination risk.
         </p>
-        <div class="cs-pull">
-          “Rather than debate the architecture in meetings, I built a working prototype — uniting open agent-UI protocols with our proprietary design system within a short span of time. Showing is always faster than telling.”
+        <div class=”cs-pull”>
+          “Instead of debating architecture in meetings for weeks, I just built the thing ⚡ — wiring up open agent-UI protocols with our design system. Showing beats telling, every time.”
         </div>
         <p>
-          <strong>The execution:</strong> Building the prototype was as much an exercise in cross-functional leadership as it was in engineering. Working closely with product, engineering, and design partners, we aligned around the architecture through a live demonstration — addressing natural questions about protocol portability, design system compatibility, and performance through a working system rather than a slide deck. The prototype used <a href="https://copilotkit.ai" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">CopilotKit</a> and AG-UI to render the same content as a rich card widget in-app, as structured HTML in email, as concise formatted content in SMS, and as audio narration for voice. The same agent — adapting its content representation intelligently to every surface. Evals validated that rendered content always matched verified source data: nothing inferred, nothing fabricated.
+          <strong>The execution 🏗️:</strong> Building the prototype was equal parts engineering and cross-functional leadership. I worked closely with product, engineering, and design partners — and instead of a slide deck, we aligned everyone around a live demo. The prototype used <a href="https://copilotkit.ai" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">CopilotKit</a> and AG-UI to render the same content as a rich card in-app, structured HTML in email, concise text in SMS, and audio narration for voice. Same agent, different surfaces — adapting intelligently everywhere. And evals made sure every piece of rendered content matched verified source data. Nothing inferred, nothing fabricated.
         </p>
         <p>
           <strong>The surfaces the agent now supports:</strong>
@@ -422,7 +466,7 @@
           <span class="cs-channel">Push Notifications</span>
         </div>
         <p>
-          <strong>The outcome:</strong> The team’s reaction when we demonstrated the prototype was that it felt magical — not because of visual polish, but because it did what the theory promised: the same intelligence adapting seamlessly to every surface and context. What started as a rapid prototype became a foundational platform architecture, transforming the agent from a conversational interface into a true <strong>omnichannel intelligent partner</strong> — one that meets users wherever they already are and communicates in the language of that surface.
+          <strong>The outcome 🎯:</strong> When we demoed the prototype, the team’s reaction was that it felt magical — not because of visual polish, but because it actually did what the theory promised. The same intelligence, adapting seamlessly to every surface and context. What started as a quick prototype became a foundational platform architecture, turning the agent from a chat interface into a true <strong>omnichannel intelligent partner</strong> — meeting users wherever they already are and speaking the language of that surface ✨
         </p>
       </div>
       <div class="cs-outcomes">
@@ -451,9 +495,9 @@
   <!-- ── EXPERIENCE ── -->
   <div class="section-wrap" id="experience">
     <div class="fade-up">
-      <span class="section-tag">Career</span>
+      <span class="section-tag">💼 Career</span>
       <h2 class="section-title">15 Years of<br><span class="gradient-text">Moonshots Made Real</span></h2>
-      <p class="section-desc">From the early days of India's internet economy to the frontier of agentic AI.</p>
+      <p class="section-desc">Started coding in Chennai, scaled products to hundreds of millions of users, and ended up at the frontier of agentic AI in San Francisco. Here's the journey 👇</p>
     </div>
     <div class="career-grid">
 
@@ -461,12 +505,13 @@
       <div class="career-card featured fade-up">
         <div class="career-card-top">
           <div>
-            <div class="career-company">League</div>
-            <div class="career-role">Senior Principal PM → Principal PM → Senior PM</div>
+            <div class="career-company">🏥 League</div>
+            <div class="career-role-chain">Senior PM <span class="role-arrow">→</span> Principal PM <span class="role-arrow">→</span> Senior Principal PM <span class="promo-badge">🚀 2 Promotions</span></div>
             <div class="career-period-loc">Apr 2021 – Present · Toronto → San Francisco</div>
           </div>
           <span class="cs-chip">Healthcare AI</span>
         </div>
+        <img src="assets/products/league-product.png" alt="League AI Health Coach — care gap scheduling interface" class="career-card-img" loading="lazy">
         <div class="career-metrics">
           <div class="career-metric">
             <div class="career-metric-val gradient-text">~50</div>
@@ -503,12 +548,13 @@
       <div class="career-card featured fade-up">
         <div class="career-card-top">
           <div>
-            <div class="career-company">Hotstar <span style="font-size:0.75rem;color:var(--dim);font-weight:400">(now JioHotstar)</span></div>
-            <div class="career-role">Product Manager II</div>
+            <div class="career-company">📺 Hotstar <span style="font-size:0.75rem;color:var(--dim);font-weight:400">(now JioHotstar)</span></div>
+            <div class="career-role-chain">Product Manager I <span class="role-arrow">→</span> Product Manager II <span class="promo-badge">🚀 Promoted</span></div>
             <div class="career-period-loc">May 2015 – Nov 2017 · Mumbai, India</div>
           </div>
           <span class="cs-chip">Media / OTT</span>
         </div>
+        <img src="assets/products/hotstar-brand.jpg" alt="JioHotstar — India's largest OTT streaming platform" class="career-card-img" loading="lazy">
         <div class="career-metrics">
           <div class="career-metric">
             <div class="career-metric-val gradient-text">200M+</div>
@@ -545,12 +591,13 @@
       <div class="career-card fade-up">
         <div class="career-card-top">
           <div>
-            <div class="career-company">Moonfrog Labs</div>
+            <div class="career-company">🎮 Moonfrog Labs</div>
             <div class="career-role">Product Manager</div>
             <div class="career-period-loc">Dec 2017 – Mar 2019 · Bangalore, India</div>
           </div>
           <span class="cs-chip v">Gaming</span>
         </div>
+        <img src="assets/products/teenpatti-gold.jpg" alt="Teen Patti Gold — Top 3 grossing mobile game in India" class="career-card-img" style="object-fit:contain;background:var(--bg2);" loading="lazy">
         <div class="career-metrics">
           <div class="career-metric">
             <div class="career-metric-val gradient-text2">2×</div>
@@ -579,12 +626,13 @@
       <div class="career-card fade-up">
         <div class="career-card-top">
           <div>
-            <div class="career-company">Inkbox</div>
+            <div class="career-company">🎨 Inkbox</div>
             <div class="career-role">Product Lead</div>
             <div class="career-period-loc">June 2019 – Mar 2021 · Toronto, Canada</div>
           </div>
           <span class="cs-chip v">E-commerce</span>
         </div>
+        <img src="assets/products/inkbox-logo.png" alt="Inkbox — Semi-permanent tattoo brand acquired by BIC" class="career-card-img" style="object-fit:contain;background:var(--bg2);padding:20px;" loading="lazy">
         <div class="career-metrics">
           <div class="career-metric">
             <div class="career-metric-val gradient-text2">2.5×</div>
@@ -613,7 +661,7 @@
       <div class="career-card fade-up" style="grid-column: 1 / -1;">
         <div class="career-card-top">
           <div>
-            <div class="career-company">Cognizant</div>
+            <div class="career-company">💻 Cognizant</div>
             <div class="career-role">Software Development Engineer</div>
             <div class="career-period-loc">July 2010 – May 2013 · Chennai, India</div>
           </div>
@@ -634,9 +682,9 @@
   <!-- ── EDUCATION ── -->
   <div class="section-wrap" id="education" style="padding-top:72px">
     <div class="fade-up">
-      <span class="section-tag">Education</span>
+      <span class="section-tag">🎓 Education</span>
       <h2 class="section-title">Technical &amp; Business <span class="gradient-text">Foundation</span></h2>
-      <p class="section-desc">India's most competitive institutions — where fewer than 1 in 100 applicants earn admission.</p>
+      <p class="section-desc">Two of India's toughest schools to get into — less than 1% acceptance at both. They taught me to think from first principles ✨</p>
     </div>
     <div class="edu-grid fade-up">
       <div class="edu-card">
@@ -678,9 +726,9 @@
   <!-- ── PROJECTS ── -->
   <div class="section-wrap" id="projects">
     <div class="fade-up">
-      <span class="section-tag">Projects &amp; Prototypes</span>
+      <span class="section-tag">🛠️ Projects &amp; Prototypes</span>
       <h2 class="section-title">Building in <span class="gradient-text">Public</span></h2>
-      <p class="section-desc">Hands-on AI prototypes exploring the frontier of agentic systems. More details and links coming soon.</p>
+      <p class="section-desc">I don't just manage products — I build them. These are hands-on prototypes I've been hacking on to stay sharp at the frontier 🔧</p>
     </div>
     <div class="projects-grid fade-up">
       <div class="project-card static">
@@ -719,9 +767,9 @@
   <!-- ── BLOG ── -->
   <div class="section-wrap" id="blog">
     <div class="fade-up">
-      <span class="section-tag">Blog</span>
+      <span class="section-tag">✍️ Blog</span>
       <h2 class="section-title">How I <span class="gradient-text">Think</span></h2>
-      <p class="section-desc">Essays on AI products, orchestration architecture, and the hard problems worth solving.</p>
+      <p class="section-desc">I write about the stuff I'm wrestling with — AI orchestration, agent design, and why most AI products still feel broken 🤔</p>
     </div>
     <div class="blog-grid fade-up">
       <a href="blog/orchestration-moat.html" class="blog-card">
@@ -762,14 +810,14 @@
   <!-- ── LEARNINGS ── -->
   <div class="section-wrap" id="learnings">
     <div class="fade-up">
-      <span class="section-tag">Knowledge &amp; Learning</span>
+      <span class="section-tag">📚 Always Learning</span>
       <h2 class="section-title">Staying at the <span class="gradient-text">Frontier</span></h2>
-      <p class="section-desc">Continuously learning and documenting the rapidly evolving AI landscape — from Claude Code to agentic patterns.</p>
+      <p class="section-desc">This space moves fast. I keep notes on everything I'm learning — from Claude Code internals to multi-agent patterns. Updated regularly 🧠</p>
     </div>
     <a href="https://kgouthamk.github.io/my-learnings/" target="_blank" rel="noopener" class="learnings-card fade-up">
       <div class="learnings-content">
         <h3>📚 AI &amp; Product Learnings</h3>
-        <p>A curated, regularly updated compendium of deep-dives on Claude Code, AI agents, MCP servers, agentic architecture patterns, and the technical depth required to lead AI products at the frontier.</p>
+        <p>My running notes on everything I'm digging into — Claude Code, AI agents, MCP servers, agentic architecture, and the technical depth you actually need to lead AI products. Updated as I learn 🔄</p>
         <div class="learnings-topics">
           <span>Claude Code &amp; Plugins</span>
           <span>Agent SDK</span>
@@ -789,9 +837,9 @@
   <!-- ── CONTACT ── -->
   <div class="section-wrap" id="contact">
     <div class="contact-card fade-up">
-      <span class="section-tag">Contact</span>
+      <span class="section-tag">📬 Say Hello</span>
       <h2 class="section-title">Let's Build <span class="gradient-text">Something Great</span></h2>
-      <p>Whether you're hiring for a senior AI PM or CPO role, looking for an advisor or speaker on agentic AI, or just want to exchange ideas on where AI products are going — I'd love to connect.</p>
+      <p>Looking for a senior AI PM or CPO? Need an advisor on agentic AI? Or just want to geek out about where AI products are headed? I'm always up for a good conversation 🤝</p>
       <div class="contact-links">
         <a href="mailto:kgouthamk@gmail.com" class="btn-primary">Send an Email →</a>
         <a href="https://www.linkedin.com/in/kgouthamk/" target="_blank" rel="noopener" class="btn-secondary">Connect on LinkedIn</a>
@@ -800,7 +848,7 @@
   </div>
 
   <footer>
-    <p>© 2026 Goutham Kesavan &nbsp;·&nbsp; San Francisco, California · <a href="blog/" style="color:var(--dim)">Blog</a></p>
+    <p>© 2026 Goutham Kesavan &nbsp;·&nbsp; 🌉 San Francisco, California · <a href="blog/" style="color:var(--dim)">Blog</a></p>
   </footer>
 
   <script>
