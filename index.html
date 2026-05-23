@@ -232,6 +232,31 @@
     .career-role-chain .role-arrow { color: var(--green); font-weight: 700; font-size: 0.95rem; }
     .career-card-img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border); }
 
+    /* ── HERO CHIPS ── */
+    .hero-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 18px; }
+    .hero-chip { font-size: 0.82rem; font-weight: 600; padding: 6px 18px; border-radius: 100px; letter-spacing: 0.01em; }
+    .hero-chip-cyan   { background: rgba(34,211,238,0.1);  border: 1px solid rgba(34,211,238,0.25);  color: var(--cyan); }
+    .hero-chip-violet { background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.25); color: var(--violet); }
+    .hero-chip-orange { background: rgba(251,146,60,0.1);  border: 1px solid rgba(251,146,60,0.25);  color: var(--orange); }
+    .hero-chip-green  { background: rgba(74,222,128,0.1);  border: 1px solid rgba(74,222,128,0.25);  color: var(--green); }
+
+    /* ── PRESS ARTICLE CARDS ── */
+    .press-card { display: flex; flex-direction: column; gap: 6px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; text-decoration: none; transition: all 0.25s; flex: 1 1 180px; min-width: 180px; }
+    .press-card:hover { background: var(--card-h); border-color: rgba(34,211,238,0.3); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .press-card-source { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--dim); }
+    .press-card-title { font-size: 0.82rem; font-weight: 500; color: var(--text); line-height: 1.45; }
+    .press-card-arrow { font-size: 0.72rem; color: var(--cyan); font-weight: 500; margin-top: auto; }
+    .press-card.violet:hover { border-color: rgba(167,139,250,0.3); }
+    .press-card.violet .press-card-arrow { color: var(--violet); }
+
+    /* ── COGNIZANT PROJECT ILLUSTRATIONS ── */
+    .cog-projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+    .cog-project { background: linear-gradient(135deg, rgba(251,146,60,0.06), rgba(167,139,250,0.04)); border: 1px solid rgba(251,146,60,0.15); border-radius: 12px; padding: 24px 16px; text-align: center; transition: all 0.3s; }
+    .cog-project:hover { border-color: rgba(251,146,60,0.3); transform: translateY(-3px); }
+    .cog-project-icon { font-size: 2.2rem; margin-bottom: 10px; display: block; }
+    .cog-project-name { font-size: 0.78rem; font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: 4px; }
+    .cog-project-desc { font-size: 0.7rem; color: var(--dim); line-height: 1.4; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 16px 24px; }
@@ -254,6 +279,8 @@
       .learnings-card { padding: 36px 28px; flex-direction: column; }
       .contact-card { padding: 44px 24px; }
       .press-link { white-space: normal; }
+      .press-card { min-width: 150px; }
+      .cog-projects { grid-template-columns: 1fr; }
       footer { padding: 28px 24px; }
     }
 
@@ -287,6 +314,12 @@
       .edu-stat { font-size: 0.72rem; }
       .learnings-card { padding: 28px 18px; }
       .learnings-card h3 { font-size: 1.3rem; }
+      .hero-chips { gap: 6px; }
+      .hero-chip { font-size: 0.72rem; padding: 5px 12px; }
+      .press-card { min-width: 0; flex: 1 1 100%; padding: 12px 14px; }
+      .cog-projects { gap: 8px; }
+      .cog-project { padding: 16px 12px; }
+      .cog-project-icon { font-size: 1.8rem; }
       .contact-card { padding: 36px 16px; }
       footer { padding: 24px 18px; }
       .about-links { flex-direction: column; }
@@ -324,8 +357,15 @@
     <p class="hero-sub">
       Let's be honest — most AI products are just wrappers. <em>The real magic is in the orchestration underneath</em> —
       how agents talk to each other, what tools they wield, and how they meet users wherever they are.
-      15 years. Hundreds of millions of users. Healthcare, Media, Gaming, E-commerce 🌍
     </p>
+    <div class="hero-chips">
+      <span class="hero-chip hero-chip-cyan">⏳ 15+ Years</span>
+      <span class="hero-chip hero-chip-violet">👥 Hundreds of Millions of Users</span>
+      <span class="hero-chip hero-chip-cyan">🏥 Healthcare</span>
+      <span class="hero-chip hero-chip-orange">📺 Media</span>
+      <span class="hero-chip hero-chip-green">🎮 Gaming</span>
+      <span class="hero-chip hero-chip-violet">🛒 E-commerce</span>
+    </div>
     <div class="hero-ctas">
       <a href="#work" class="btn-primary">See Featured Work →</a>
       <a href="https://www.linkedin.com/in/kgouthamk/" target="_blank" rel="noopener" class="btn-secondary">LinkedIn Profile</a>
@@ -538,9 +578,21 @@
           <li>Upgraded benefits wallet to a plug-n-play offering that landed enterprise deals in the <strong>$10–100M range</strong> — 100× previous deal sizes</li>
         </ul>
         <div class="career-press">
-          <a href="https://league.com/newsroom/telus-ai-healthcare-delivery-partner/" target="_blank" rel="noopener" class="press-link">📰 TELUS × League AI Partnership</a>
-          <a href="https://www.theglobeandmail.com/business/article-league-mike-serbinis-toronto-health-care-startup-funding/" target="_blank" rel="noopener" class="press-link">📰 Globe &amp; Mail — League Growth</a>
-          <a href="https://github.com/ag-ui-protocol/ag-ui" target="_blank" rel="noopener" class="press-link">🔗 AG-UI Protocol (Open Source)</a>
+          <a href="https://league.com/newsroom/telus-ai-healthcare-delivery-partner/" target="_blank" rel="noopener" class="press-card">
+            <span class="press-card-source">📰 League Newsroom</span>
+            <span class="press-card-title">TELUS × League AI Partnership</span>
+            <span class="press-card-arrow">Read →</span>
+          </a>
+          <a href="https://www.theglobeandmail.com/business/article-league-mike-serbinis-toronto-health-care-startup-funding/" target="_blank" rel="noopener" class="press-card">
+            <span class="press-card-source">📰 Globe &amp; Mail</span>
+            <span class="press-card-title">League's Growth &amp; Funding</span>
+            <span class="press-card-arrow">Read →</span>
+          </a>
+          <a href="https://github.com/ag-ui-protocol/ag-ui" target="_blank" rel="noopener" class="press-card">
+            <span class="press-card-source">🔗 Open Source</span>
+            <span class="press-card-title">AG-UI Protocol on GitHub</span>
+            <span class="press-card-arrow">View →</span>
+          </a>
         </div>
       </div>
 
@@ -554,7 +606,7 @@
           </div>
           <span class="cs-chip">Media / OTT</span>
         </div>
-        <img src="assets/products/hotstar-brand.jpg" alt="JioHotstar — India's largest OTT streaming platform" class="career-card-img" loading="lazy">
+        <img src="assets/products/hotstar-ui.png" alt="Hotstar streaming platform — content discovery UI" class="career-card-img" loading="lazy">
         <div class="career-metrics">
           <div class="career-metric">
             <div class="career-metric-val gradient-text">200M+</div>
@@ -581,9 +633,21 @@
           <li>Drove cricket-to-TV-show retention strategy, dramatically increasing <strong>long-term retention and LTV</strong></li>
         </ul>
         <div class="career-press">
-          <a href="https://www.gadgetbridge.com/news/hotstar-breaks-previous-records-with-a-viewership-of-25-3-million-during-india-vs-new-zealand-world-cup-match/" target="_blank" rel="noopener" class="press-link">📰 25.3M Concurrent Viewers Record</a>
-          <a href="https://techcrunch.com/2023/11/19/india-and-australia-world-cup-final-shatters-streaming-records-on-hotstar/" target="_blank" rel="noopener" class="press-link">📰 TechCrunch — Streaming Records</a>
-          <a href="https://variety.com/2025/tv/news/how-indian-streamer-jiohotstar-100-million-subscribers-1236358603/" target="_blank" rel="noopener" class="press-link">📰 Variety — JioHotstar's Rise</a>
+          <a href="https://www.gadgetbridge.com/news/hotstar-breaks-previous-records-with-a-viewership-of-25-3-million-during-india-vs-new-zealand-world-cup-match/" target="_blank" rel="noopener" class="press-card">
+            <span class="press-card-source">📰 GadgetBridge</span>
+            <span class="press-card-title">25.3M Concurrent Viewers — World Record</span>
+            <span class="press-card-arrow">Read →</span>
+          </a>
+          <a href="https://techcrunch.com/2023/11/19/india-and-australia-world-cup-final-shatters-streaming-records-on-hotstar/" target="_blank" rel="noopener" class="press-card">
+            <span class="press-card-source">📰 TechCrunch</span>
+            <span class="press-card-title">World Cup Final Shatters Streaming Records</span>
+            <span class="press-card-arrow">Read →</span>
+          </a>
+          <a href="https://variety.com/2025/tv/news/how-indian-streamer-jiohotstar-100-million-subscribers-1236358603/" target="_blank" rel="noopener" class="press-card">
+            <span class="press-card-source">📰 Variety</span>
+            <span class="press-card-title">JioHotstar's Rise to 100M Subscribers</span>
+            <span class="press-card-arrow">Read →</span>
+          </a>
         </div>
       </div>
 
@@ -597,7 +661,7 @@
           </div>
           <span class="cs-chip v">Gaming</span>
         </div>
-        <img src="assets/products/teenpatti-gold.jpg" alt="Teen Patti Gold — Top 3 grossing mobile game in India" class="career-card-img" style="object-fit:contain;background:var(--bg2);" loading="lazy">
+        <img src="assets/products/teenpatti-gameplay.jpg" alt="Teen Patti Gold — gameplay showing multiple game modes" class="career-card-img" loading="lazy">
         <div class="career-metrics">
           <div class="career-metric">
             <div class="career-metric-val gradient-text2">2×</div>
@@ -617,8 +681,16 @@
           <li>Defined and delivered the most profitable game mode in TPG history — <strong>Andar Bahar</strong></li>
         </ul>
         <div class="career-press">
-          <a href="https://animationxpress.com/latest-news/after-the-success-of-teen-patti-gold-moonfrog-labs-is-experimenting-with-other-genres/" target="_blank" rel="noopener" class="press-link violet">📰 AnimationXpress — TPG Success</a>
-          <a href="https://www.skandgroup.com/post/moonfrog-labs-india-s-mobile-gaming-pioneer" target="_blank" rel="noopener" class="press-link violet">📰 India's Gaming Pioneer</a>
+          <a href="https://animationxpress.com/latest-news/after-the-success-of-teen-patti-gold-moonfrog-labs-is-experimenting-with-other-genres/" target="_blank" rel="noopener" class="press-card violet">
+            <span class="press-card-source">📰 AnimationXpress</span>
+            <span class="press-card-title">Teen Patti Gold's Success Story</span>
+            <span class="press-card-arrow">Read →</span>
+          </a>
+          <a href="https://www.skandgroup.com/post/moonfrog-labs-india-s-mobile-gaming-pioneer" target="_blank" rel="noopener" class="press-card violet">
+            <span class="press-card-source">📰 Skand Group</span>
+            <span class="press-card-title">India's Mobile Gaming Pioneer</span>
+            <span class="press-card-arrow">Read →</span>
+          </a>
         </div>
       </div>
 
@@ -632,7 +704,23 @@
           </div>
           <span class="cs-chip v">E-commerce</span>
         </div>
-        <img src="assets/products/inkbox-logo.png" alt="Inkbox — Semi-permanent tattoo brand acquired by BIC" class="career-card-img" style="object-fit:contain;background:var(--bg2);padding:20px;" loading="lazy">
+        <div class="cog-projects" style="grid-template-columns:1fr 1fr 1fr;margin-top:0">
+          <div class="cog-project" style="background:linear-gradient(135deg,rgba(167,139,250,0.06),rgba(34,211,238,0.04));border-color:rgba(167,139,250,0.15)">
+            <span class="cog-project-icon">🔍</span>
+            <div class="cog-project-name">Browse &amp; Search</div>
+            <div class="cog-project-desc">2.5× conversion lift</div>
+          </div>
+          <div class="cog-project" style="background:linear-gradient(135deg,rgba(167,139,250,0.06),rgba(34,211,238,0.04));border-color:rgba(167,139,250,0.15)">
+            <span class="cog-project-icon">📦</span>
+            <div class="cog-project-name">Product Bundles</div>
+            <div class="cog-project-desc">65% AOV increase</div>
+          </div>
+          <div class="cog-project" style="background:linear-gradient(135deg,rgba(167,139,250,0.06),rgba(34,211,238,0.04));border-color:rgba(167,139,250,0.15)">
+            <span class="cog-project-icon">🎨</span>
+            <div class="cog-project-name">Custom Platform</div>
+            <div class="cog-project-desc">+10% incremental rev</div>
+          </div>
+        </div>
         <div class="career-metrics">
           <div class="career-metric">
             <div class="career-metric-val gradient-text2">2.5×</div>
@@ -652,8 +740,16 @@
           <li>Launched Product Bundles and tiered discounts for <strong>65% AOV increase</strong>; built custom tattoo platform adding <strong>10% incremental revenue</strong></li>
         </ul>
         <div class="career-press">
-          <a href="https://www.shopify.com/blog/inkbox-social-media" target="_blank" rel="noopener" class="press-link violet">📰 Shopify — 8-Figure Business</a>
-          <a href="https://corporate.bic.com/en-us/news/bic-acquires-inkbox" target="_blank" rel="noopener" class="press-link violet">📰 BIC Acquires Inkbox ($65M)</a>
+          <a href="https://www.shopify.com/blog/inkbox-social-media" target="_blank" rel="noopener" class="press-card violet">
+            <span class="press-card-source">📰 Shopify Blog</span>
+            <span class="press-card-title">How Inkbox Built an 8-Figure Business</span>
+            <span class="press-card-arrow">Read →</span>
+          </a>
+          <a href="https://corporate.bic.com/en-us/news/bic-acquires-inkbox" target="_blank" rel="noopener" class="press-card violet">
+            <span class="press-card-source">📰 BIC Corporate</span>
+            <span class="press-card-title">BIC Acquires Inkbox for $65M</span>
+            <span class="press-card-arrow">Read →</span>
+          </a>
         </div>
       </div>
 
@@ -666,6 +762,23 @@
             <div class="career-period-loc">July 2010 – May 2013 · Chennai, India</div>
           </div>
           <span class="cs-chip" style="background:rgba(251,146,60,0.09);border-color:rgba(251,146,60,0.22);color:var(--orange)">Engineering</span>
+        </div>
+        <div class="cog-projects">
+          <div class="cog-project">
+            <span class="cog-project-icon">🫀</span>
+            <div class="cog-project-name">Remote Health Monitor</div>
+            <div class="cog-project-desc">50% cost reduction per patient</div>
+          </div>
+          <div class="cog-project">
+            <span class="cog-project-icon">🖐️</span>
+            <div class="cog-project-name">Gesture &amp; Speech Nav</div>
+            <div class="cog-project-desc">Retail navigation framework</div>
+          </div>
+          <div class="cog-project">
+            <span class="cog-project-icon">💄</span>
+            <div class="cog-project-name">AR Makeover App</div>
+            <div class="cog-project-desc">Augmented Reality beauty tool</div>
+          </div>
         </div>
         <ul class="career-highlights" style="margin-top:12px;">
           <li>Shipped remote health monitoring solution, <strong>reducing cost per patient by 50%</strong></li>
