@@ -186,6 +186,7 @@
     /* ── PROJECTS ── */
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(272px, 1fr)); gap: 20px; }
     .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; text-decoration: none; display: block; transition: all 0.35s; cursor: default; }
+    .project-card:not(.static) { cursor: pointer; }
     .project-card:not(.static):hover { background: var(--card-h); border-color: rgba(34,211,238,0.25); transform: translateY(-6px); box-shadow: var(--glow); }
     .project-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.45rem; margin-bottom: 18px; }
     .ic-blue   { background: rgba(34,211,238,0.13); }
